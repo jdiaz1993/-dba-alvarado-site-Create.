@@ -2,13 +2,13 @@
 
 import { useCart } from "../../context/CartContext";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 
 function formatUSD(cents: number): string {
 	return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 }
 
-export default function CartPage() {
+function CartContent() {
 	const { items, updateQuantity, removeItem, totalCents, clear } = useCart();
 	const searchParams = useSearchParams();
 	const [hasCleared, setHasCleared] = useState(false);
@@ -109,5 +109,13 @@ export default function CartPage() {
 				)}
 			</div>
 		</div>
+	);
+}
+
+export default function CartPage() {
+	return (
+		<Suspense fallback={<div className="min-h-screen bg-gray-50 py-8 flex items-center justify-center">Loading...</div>}>
+			<CartContent />
+		</Suspense>
 	);
 }

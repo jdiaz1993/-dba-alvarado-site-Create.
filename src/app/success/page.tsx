@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SuccessPage() {
 	return (
 		<div className="min-h-screen bg-gray-50 py-16">
@@ -11,8 +13,8 @@ export default function SuccessPage() {
 					<h1 className="text-3xl font-bold text-gray-900 mb-2">Thank you for your order!</h1>
 					<p className="text-gray-600 mb-6">Your payment was successful. We’re preparing your items.</p>
 					<div className="space-x-3">
-						<a href="/products" className="inline-block bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700">Continue Shopping</a>
-						<a href="/" className="inline-block border border-gray-300 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-50">Go Home</a>
+						<Link href="/products" className="inline-block bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700">Continue Shopping</Link>
+						<Link href="/" className="inline-block border border-gray-300 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-50">Go Home</Link>
 					</div>
 				</div>
 			</div>

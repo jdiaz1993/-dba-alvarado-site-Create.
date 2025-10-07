@@ -21,12 +21,12 @@ export async function POST(request: Request) {
 		const event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
 
 		if (event.type === "checkout.session.completed") {
-			const session = event.data.object as any;
+			const session = event.data.object as import("stripe").Stripe.Checkout.Session;
 			addOrder({
 				id: session.id,
 				stripeSessionId: session.id,
 				createdAt: Date.now(),
-				customerEmail: session.customer_details?.email,
+				customerEmail: session.customer_details?.email || undefined,
 				totalCents: session.amount_total ?? undefined,
 				metadata: session.metadata ?? undefined,
 			});

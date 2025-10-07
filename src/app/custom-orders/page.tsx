@@ -5,7 +5,7 @@ export default function CustomOrders() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Custom Orders</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tell us about your custom project and we'll provide you with a personalized quote
+            Tell us about your custom project and we&apos;ll provide you with a personalized quote
           </p>
         </div>
 

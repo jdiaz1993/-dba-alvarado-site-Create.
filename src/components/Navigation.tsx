@@ -6,7 +6,7 @@ import { useCart } from "../context/CartContext";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { totalQuantity } = useCart();
+  const { totalQuantity, isSaving } = useCart();
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -25,7 +25,7 @@ export default function Navigation() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-2xl font-bold text-purple-700">
-              DBA Alvarado
+              DBA Customization
             </Link>
           </div>
 
@@ -46,8 +46,8 @@ export default function Navigation() {
 
           {/* Cart Button */}
           <div className="hidden md:block">
-            <Link href="/cart" className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-200">
-              Cart ({totalQuantity})
+            <Link href="/cart" className={`px-4 py-2 rounded-md transition-colors duration-200 ${isSaving ? 'bg-purple-500 text-white' : 'bg-purple-600 text-white hover:bg-purple-700'}`}>
+              {isSaving ? '💾 Saving...' : `Cart (${totalQuantity})`}
             </Link>
           </div>
 
@@ -78,8 +78,8 @@ export default function Navigation() {
                   {item.name}
                 </Link>
               ))}
-              <Link href="/cart" onClick={() => setIsMenuOpen(false)} className="w-full inline-block text-center bg-purple-600 text-white px-3 py-2 rounded-md hover:bg-purple-700 transition-colors duration-200 mt-4">
-                Cart ({totalQuantity})
+              <Link href="/cart" onClick={() => setIsMenuOpen(false)} className={`w-full inline-block text-center px-3 py-2 rounded-md transition-colors duration-200 mt-4 ${isSaving ? 'bg-purple-500 text-white' : 'bg-purple-600 text-white hover:bg-purple-700'}`}>
+                {isSaving ? '💾 Saving...' : `Cart (${totalQuantity})`}
               </Link>
             </div>
           </div>

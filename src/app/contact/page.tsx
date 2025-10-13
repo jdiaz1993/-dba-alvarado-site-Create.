@@ -1,4 +1,52 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    // Create mailto link with form data
+    const mailtoLink = `mailto:DBA.alvarado@gmail.com?subject=${encodeURIComponent(
+      `Contact Form: ${formData.subject || 'General Inquiry'}`
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.firstName} ${formData.lastName}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone || 'Not provided'}\n` +
+      `Subject: ${formData.subject}\n\n` +
+      `Message:\n${formData.message}`
+    )}`;
+
+    // Open email client
+    window.location.href = mailtoLink;
+
+    // Reset form after a delay
+    setTimeout(() => {
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+      });
+      setIsSubmitting(false);
+    }, 1000);
+  };
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,7 +61,14 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-            <form className="space-y-6">
+            
+            {submitStatus === 'success' && (
+              <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-green-800">✅ Your email client should open. Message ready to send!</p>
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -32,6 +87,8 @@ export default function Contact() {
                   <input
                     type="text"
                     required
+                    value={formData.lastName}
+                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -44,6 +101,8 @@ export default function Contact() {
                 <input
                   type="email"
                   required
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -54,6 +113,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -62,7 +123,11 @@ export default function Contact() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Subject *
                 </label>
-                <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select 
+                  value={formData.subject}
+                  onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
                   <option value="">Select a subject</option>
                   <option value="quote">Request Quote</option>
                   <option value="custom-order">Custom Order Inquiry</option>
@@ -79,6 +144,8 @@ export default function Contact() {
                 <textarea
                   rows={5}
                   required
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
                   placeholder="Tell us about your project or question..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -86,10 +153,19 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold ${
+                  isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 hover:bg-blue-700'
+                } text-white`}
               >
-                Send Message
+                {isSubmitting ? 'Opening Email Client...' : 'Send Message'}
               </button>
+              
+              <p className="text-xs text-gray-500 text-center mt-2">
+                This will open your email client with the message pre-filled
+              </p>
             </form>
           </div>
 
@@ -107,8 +183,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                    <p className="text-gray-600">(555) 123-4567</p>
-                    <p className="text-gray-600">Mon-Fri: 9AM-6PM</p>
+                    <p className="text-gray-600">(555) 555-5555</p>
+                    <p className="text-gray-600">Mon-Sat: 10AM-5PM</p>
                   </div>
                 </div>
 
@@ -120,8 +196,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">info@dbaalvarado.com</p>
-                    <p className="text-gray-600">orders@dbaalvarado.com</p>
+                    <p className="text-gray-600">DBA.alvarado@gmail.com</p>
+                    
                   </div>
                 </div>
 
@@ -133,16 +209,16 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Address</h3>
-                    <p className="text-gray-600">123 Business Street</p>
-                    <p className="text-gray-600">City, State 12345</p>
+                    <h3 className="text-lg font-semibold text-gray-900">Shipping From</h3>
+                    
+                    <p className="text-gray-600">Los Angeles, CA</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Business Hours</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Productions Hours</h2>
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Monday - Friday</span>

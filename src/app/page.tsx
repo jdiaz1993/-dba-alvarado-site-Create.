@@ -1,4 +1,6 @@
 
+import Link from 'next/link';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -7,19 +9,19 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Welcome to DBA Alvarado
+              Welcome to DBA Customization
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Professional custom shirt printing and engraving services. 
               From water bottles to wood, we bring your designs to life with quality and precision.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              <Link href="/products" className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                 View Products
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+              </Link>
+              <Link href="/custom-orders" className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
                 Get Custom Quote
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -51,9 +53,9 @@ export default function Home() {
                   High-quality custom shirt printing with various techniques including screen printing, 
                   vinyl heat transfer, and embroidery. Perfect for events, teams, and personal use.
                 </p>
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                <Link href="/shirt-prints" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -70,9 +72,9 @@ export default function Home() {
                   Precision engraving on water bottles, wood, metal, and more. 
                   Create lasting personalized items with our professional engraving services.
                 </p>
-                <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                <Link href="/engravings" className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -132,12 +134,12 @@ export default function Home() {
             Contact us today for a custom quote or browse our products to see what we can create for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Browse Products
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+            <Link href="/products" className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              View Products
+            </Link>
+            <Link href="/contact" className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
               Contact Us
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -166,10 +168,10 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">About Us</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
-                <li><a href="#" className="hover:text-white">FAQ</a></li>
-                <li><a href="#" className="hover:text-white">Shipping</a></li>
+                <li><Link href="/about" className="hover:text-white">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
+                <li><Link href="/products" className="hover:text-white">Products</Link></li>
+                <li><Link href="/custom-orders" className="hover:text-white">Custom Orders</Link></li>
               </ul>
             </div>
             

@@ -1,0 +1,25 @@
+# Vercel Ignore File
+# Files and folders to exclude from deployment
+
+# Documentation
+*.md
+!README.md
+
+# Development files
+.env.local
+.env*.local
+
+# Database (SQLite won't work on Vercel)
+/data
+*.db
+*.sqlite
+
+# Test files
+src/app/test-checkout
+
+# Logs
+*.log
+
+# IDE
+.vscode
+.idea

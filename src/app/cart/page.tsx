@@ -9,9 +9,10 @@ function formatUSD(cents: number): string {
 }
 
 function CartContent() {
-	const { items, updateQuantity, removeItem, totalCents, clear } = useCart();
+	const { items, updateQuantity, removeItem, totalCents, clear, isLoading, isSaving, syncError } = useCart();
 	const searchParams = useSearchParams();
 	const [hasCleared, setHasCleared] = useState(false);
+	const [shippingType, setShippingType] = useState<'domestic' | 'international'>('domestic');
 
 	const status = useMemo(() => {
 		if (searchParams.get("success")) return "success" as const;
@@ -26,12 +27,26 @@ function CartContent() {
 		}
 	}, [status, hasCleared, items.length, clear]);
 
+	const shippingFee = shippingType === 'domestic' ? 500 : 1000; // $5 or $10 in cents
+	const grandTotal = totalCents + shippingFee;
+
 	async function onCheckout() {
 		try {
+			// Add shipping as a line item
+			const checkoutItems = [
+				...items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
+				{ 
+					id: 'shipping', 
+					name: `Shipping (${shippingType === 'domestic' ? 'Domestic' : 'International'})`, 
+					price: shippingFee, 
+					quantity: 1 
+				}
+			];
+
 			const res = await fetch("/api/checkout", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ items: items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })) }),
+				body: JSON.stringify({ items: checkoutItems }),
 			});
 			const data = await res.json();
 			if (!res.ok) throw new Error(data?.error || "Checkout failed");
@@ -54,7 +69,21 @@ function CartContent() {
 					</div>
 				)}
 
-				{items.length === 0 ? (
+				{syncError && (
+					<div className="mb-6 rounded-md p-4 bg-red-50 border border-red-200 text-red-800">
+						{syncError}. Your cart changes may not be saved.
+					</div>
+				)}
+
+				{isSaving && (
+					<div className="mb-6 rounded-md p-4 bg-blue-50 border border-blue-200 text-blue-800">
+						💾 Saving cart...
+					</div>
+				)}
+
+				{isLoading ? (
+					<div className="bg-white rounded-lg shadow p-8 text-center text-gray-600">Loading your cart...</div>
+				) : items.length === 0 ? (
 					<div className="bg-white rounded-lg shadow p-8 text-center text-gray-600">Your cart is empty.</div>
 				) : (
 					<div className="grid lg:grid-cols-3 gap-8">
@@ -96,9 +125,55 @@ function CartContent() {
 								<span>Subtotal</span>
 								<span>{formatUSD(totalCents)}</span>
 							</div>
-							<div className="flex justify-between text-gray-700 mb-6">
+							
+							{/* Shipping Selection */}
+							<div className="my-4 pt-4 border-t">
+								<label className="block text-sm font-medium text-gray-700 mb-2">
+									Shipping Method
+								</label>
+								<div className="space-y-2">
+									<label className="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
+										<input
+											type="radio"
+											name="shipping"
+											value="domestic"
+											checked={shippingType === 'domestic'}
+											onChange={() => setShippingType('domestic')}
+											className="mr-3"
+										/>
+										<div className="flex-1 flex justify-between items-center">
+											<span className="font-medium">Domestic Shipping</span>
+											<span className="text-gray-700">$5.00</span>
+										</div>
+									</label>
+									<label className="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
+										<input
+											type="radio"
+											name="shipping"
+											value="international"
+											checked={shippingType === 'international'}
+											onChange={() => setShippingType('international')}
+											className="mr-3"
+										/>
+										<div className="flex-1 flex justify-between items-center">
+											<span className="font-medium">International Shipping</span>
+											<span className="text-gray-700">$10.00</span>
+										</div>
+									</label>
+								</div>
+							</div>
+
+							<div className="flex justify-between text-gray-700 mb-2 pt-4 border-t">
+								<span>Shipping</span>
+								<span>{formatUSD(shippingFee)}</span>
+							</div>
+							<div className="flex justify-between text-gray-700 mb-2">
 								<span>Estimated Tax</span>
 								<span>Calculated at checkout</span>
+							</div>
+							<div className="flex justify-between text-xl font-bold text-gray-900 mb-6 pt-4 border-t">
+								<span>Total</span>
+								<span>{formatUSD(grandTotal)}</span>
 							</div>
 							<div className="space-y-3">
 								<button onClick={onCheckout} className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 font-semibold">Checkout</button>

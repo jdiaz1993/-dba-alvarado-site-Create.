@@ -1,4 +1,88 @@
-export default function CustomOrders() {
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import ImageUpload from '../../components/ImageUpload';
+import { useCart } from '../../context/CartContext';
+
+// Product pricing
+const productPrices: Record<string, { name: string; basePrice: number; }> = {
+  'shirt-printing': { name: 'Custom T-Shirt Printing', basePrice: 2000 }, // $20.00
+  'water-bottle-engraving': { name: 'Engraved Water Bottle', basePrice: 3599 }, // $35.99
+  'wood-engraving': { name: 'Custom Wood Engraving', basePrice: 2599 }, // $25.99
+  'metal-engraving': { name: 'Metal Engraving', basePrice: 2999 }, // $29.99
+  'other': { name: 'Custom Order', basePrice: 0 }, // Price TBD
+};
+
+function CustomOrdersContent() {
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [selectedProjectType, setSelectedProjectType] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { addItem } = useCart();
+
+  useEffect(() => {
+    // Get project type from URL parameter
+    const type = searchParams.get('type');
+    if (type) {
+      setSelectedProjectType(type);
+    }
+  }, [searchParams]);
+
+  const handleImageUpload = (file: File) => {
+    setUploadedFiles(prev => [...prev, file]);
+    console.log('Uploaded file for custom order:', file);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    console.log('Form submitted');
+    console.log('Selected project type:', selectedProjectType);
+    console.log('Quantity:', quantity);
+    
+    if (!selectedProjectType) {
+      alert('Please select a project type');
+      return;
+    }
+
+    const productInfo = productPrices[selectedProjectType];
+    
+    if (!productInfo) {
+      alert('Invalid project type');
+      return;
+    }
+
+    console.log('Product info:', productInfo);
+    console.log('Adding to cart...');
+
+    // Add to cart
+    try {
+      addItem({
+        id: `custom-${selectedProjectType}-${Date.now()}`,
+        name: productInfo.name,
+        price: productInfo.basePrice,
+      }, quantity);
+      
+      console.log('Item added to cart successfully');
+      
+      // Show success message and redirect to cart
+      setTimeout(() => {
+        alert('Custom order added to cart! Please proceed to checkout.');
+        router.push('/cart');
+      }, 100);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Error adding to cart. Please try again.');
+    }
+  };
+
+  const formatUSD = (cents: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
+  };
+
+  const currentPrice = selectedProjectType ? productPrices[selectedProjectType] : null;
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +94,7 @@ export default function CustomOrders() {
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-8">
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Personal Information */}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -63,7 +147,11 @@ export default function CustomOrders() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Project Type *
               </label>
-              <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <select 
+                value={selectedProjectType}
+                onChange={(e) => setSelectedProjectType(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
                 <option value="">Select a project type</option>
                 <option value="shirt-printing">Shirt Printing</option>
                 <option value="water-bottle-engraving">Water Bottle Engraving</option>
@@ -71,6 +159,26 @@ export default function CustomOrders() {
                 <option value="metal-engraving">Metal Engraving</option>
                 <option value="other">Other</option>
               </select>
+              
+              {currentPrice && currentPrice.basePrice > 0 && (
+                <div className="mt-3 p-4 bg-blue-50 border border-blue-200 rounded-md">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-sm font-medium text-blue-900">Base Price per Item</p>
+                      <p className="text-xs text-blue-700">Final price may vary based on customization</p>
+                    </div>
+                    <p className="text-2xl font-bold text-blue-900">{formatUSD(currentPrice.basePrice)}</p>
+                  </div>
+                </div>
+              )}
+              
+              {currentPrice && currentPrice.basePrice === 0 && (
+                <div className="mt-3 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+                  <p className="text-sm text-yellow-800">
+                    💡 Price will be determined based on your specifications. We'll contact you with a quote.
+                  </p>
+                </div>
+              )}
             </div>
 
             <div>
@@ -80,6 +188,8 @@ export default function CustomOrders() {
               <input
                 type="number"
                 min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -101,14 +211,49 @@ export default function CustomOrders() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Upload Design Files (Optional)
               </label>
-              <input
-                type="file"
-                multiple
-                accept="image/*,.pdf,.ai,.eps"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <ImageUpload 
+                onImageUpload={handleImageUpload}
+                maxSize={10}
+                acceptedTypes={['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']}
+                className="mb-4"
               />
-              <p className="text-sm text-gray-500 mt-1">
-                Accepted formats: JPG, PNG, PDF, AI, EPS
+              
+              {uploadedFiles.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">
+                    Uploaded Files ({uploadedFiles.length})
+                  </h4>
+                  <div className="space-y-2">
+                    {uploadedFiles.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-md">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center mr-3">
+                            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-900">{file.name}</p>
+                            <p className="text-xs text-gray-500">
+                              {(file.size / 1024 / 1024).toFixed(2)} MB
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}
+                          className="text-red-600 hover:text-red-800 text-sm"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              <p className="text-sm text-gray-500 mt-2">
+                💡 <strong>Pro tip:</strong> High-resolution images (300+ DPI) work best for printing. 
+                For logos, vector files (SVG, AI, EPS) are preferred.
               </p>
             </div>
 
@@ -146,15 +291,52 @@ export default function CustomOrders() {
               </label>
             </div>
 
+            {currentPrice && currentPrice.basePrice > 0 && (
+              <div className="bg-gray-50 p-4 rounded-md">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-lg font-medium text-gray-900">Estimated Total:</span>
+                  <span className="text-2xl font-bold text-purple-600">
+                    {formatUSD(currentPrice.basePrice * quantity)}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600">
+                  This is a base estimate. Final price will be confirmed before production.
+                </p>
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+              disabled={!selectedProjectType}
+              onClick={(e) => {
+                console.log('Button clicked');
+                if (!selectedProjectType) {
+                  e.preventDefault();
+                  alert('Please select a project type first');
+                }
+              }}
+              className={`w-full py-3 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold transition-colors ${
+                selectedProjectType
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
             >
-              Submit Custom Order Request
+              {currentPrice && currentPrice.basePrice > 0 
+                ? 'Add to Cart & Continue'
+                : 'Submit Custom Order Request'
+              }
             </button>
           </form>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CustomOrders() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 py-8 flex items-center justify-center">Loading...</div>}>
+      <CustomOrdersContent />
+    </Suspense>
   );
 }

@@ -8,13 +8,37 @@ export default function EngravingsPage() {
 				</p>
 
 				<div className="grid md:grid-cols-3 gap-6">
-					{["Water Bottles","Wood Signs","Metal Tags"].map((title, i) => (
-						<div key={i} className="bg-white rounded-lg shadow p-6">
-							<div className="h-40 bg-gray-200 rounded mb-4" />
-							<h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-							<p className="text-gray-600">Precision engraving for crisp, lasting personalization.</p>
+					<div className="bg-white rounded-lg shadow p-6">
+						<div className="h-40 bg-gray-200 rounded mb-4 overflow-hidden flex items-center justify-center">
+							<img 
+								src="/assets/images/gallery/20251005_144719.jpg" 
+								alt="Engraved Water Bottle Example"
+								className="max-h-full max-w-full object-contain"
+							/>
 						</div>
-					))}
+						<h3 className="text-xl font-semibold text-gray-900 mb-2">Water Bottles</h3>
+						<p className="text-gray-600">Precision laser engraving on stainless steel and aluminum bottles.</p>
+					</div>
+					
+					<div className="bg-white rounded-lg shadow p-6">
+						<div className="h-40 bg-gray-200 rounded mb-4 overflow-hidden flex items-center justify-center">
+							<img 
+								src="/assets/images/gallery/wood-engraving-example.jpg" 
+								alt="Wood Engraving Example"
+								className="max-h-full max-w-full object-contain"
+							/>
+						</div>
+						<h3 className="text-xl font-semibold text-gray-900 mb-2">Wood Signs</h3>
+						<p className="text-gray-600">Custom wood signs and plaques with detailed engraving.</p>
+					</div>
+					
+					<div className="bg-white rounded-lg shadow p-6">
+						<div className="h-40 bg-gray-200 rounded mb-4 flex items-center justify-center">
+							<span className="text-gray-500">Metal Tag Example</span>
+						</div>
+						<h3 className="text-xl font-semibold text-gray-900 mb-2">Metal Tags</h3>
+						<p className="text-gray-600">Durable metal tags and nameplates for identification.</p>
+					</div>
 				</div>
 
 				<div className="mt-10">

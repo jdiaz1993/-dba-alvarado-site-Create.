@@ -104,7 +104,7 @@ export async function sendOrderNotification(orderData: OrderData) {
                       </tr>
                     </thead>
                     <tbody>
-                      ${orderData.items.map(item => `
+                      ${orderData.items.map((item: { name: string; quantity: number; price: number }) => `
                         <tr>
                           <td><strong>${item.name}</strong></td>
                           <td style="text-align: center;">${item.quantity}</td>
@@ -224,7 +224,7 @@ export async function sendCustomerConfirmation(orderData: OrderData) {
                       </tr>
                     </thead>
                     <tbody>
-                      ${orderData.items.map(item => `
+                      ${orderData.items.map((item: { name: string; quantity: number; price: number }) => `
                         <tr>
                           <td>${item.name}</td>
                           <td>${item.quantity}</td>

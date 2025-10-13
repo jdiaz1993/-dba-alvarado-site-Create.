@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         email: customer.email,
         phone: customer.phone,
       },
-      items: items.map((item: any) => ({
+      items: items.map((item: { name: string; quantity: number; price: number }) => ({
         name: item.name,
         quantity: item.quantity,
         price: item.price,

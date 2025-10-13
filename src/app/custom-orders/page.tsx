@@ -175,7 +175,7 @@ function CustomOrdersContent() {
               {currentPrice && currentPrice.basePrice === 0 && (
                 <div className="mt-3 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
                   <p className="text-sm text-yellow-800">
-                    💡 Price will be determined based on your specifications. We'll contact you with a quote.
+                    💡 Price will be determined based on your specifications. We&apos;ll contact you with a quote.
                   </p>
                 </div>
               )}

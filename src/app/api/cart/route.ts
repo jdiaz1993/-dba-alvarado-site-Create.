@@ -1,53 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { initDatabase, createOrGetUser, getCartByUserId, saveCart, clearCart, CartItem } from '../../../lib/database';
+// Database disabled for Vercel deployment (serverless doesn't support SQLite)
+// import { initDatabase, createOrGetUser, getCartByUserId, saveCart, clearCart, CartItem } from '../../../lib/database';
 
-// Initialize database on first import
-let dbInitialized = false;
-if (!dbInitialized) {
-  await initDatabase();
-  dbInitialized = true;
-}
+// Helper function to get session ID from request (not used in simplified version)
+// function getSessionId(request: NextRequest): string {
+//   const sessionCookie = request.cookies.get('session_id');
+//   if (sessionCookie) {
+//     return sessionCookie.value;
+//   }
+//   const authHeader = request.headers.get('authorization');
+//   if (authHeader?.startsWith('Bearer ')) {
+//     return authHeader.substring(7);
+//   }
+//   const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+//   return newSessionId;
+// }
 
-// Helper function to get session ID from request
-function getSessionId(request: NextRequest): string {
-  // Try to get session from cookie
-  const sessionCookie = request.cookies.get('session_id');
-  if (sessionCookie) {
-    return sessionCookie.value;
-  }
-
-  // Try to get session from Authorization header
-  const authHeader = request.headers.get('authorization');
-  if (authHeader?.startsWith('Bearer ')) {
-    return authHeader.substring(7);
-  }
-
-  // Generate new session ID
-  const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  return newSessionId;
-}
-
-// GET /api/cart - Retrieve user's cart
-export async function GET(request: NextRequest) {
+// GET /api/cart - Retrieve user's cart (simplified for Vercel)
+export async function GET() {
   try {
-    const sessionId = getSessionId(request);
-    const userId = await createOrGetUser(sessionId);
-    const cart = await getCartByUserId(userId);
-
+    // For Vercel: Cart is managed client-side only
+    // Return empty cart - actual cart state is in browser
     const response = NextResponse.json({
       success: true,
-      cart: cart || { id: '', userId, items: [], createdAt: '', updatedAt: '' }
+      cart: { id: 'browser-cart', userId: 'local', items: [], createdAt: '', updatedAt: '' }
     });
-
-    // Set session cookie if it's new
-    if (!request.cookies.get('session_id')) {
-      response.cookies.set('session_id', sessionId, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30 // 30 days
-      });
-    }
 
     return response;
   } catch (error) {
@@ -59,12 +36,9 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/cart - Save user's cart
+// POST /api/cart - Save user's cart (simplified for Vercel)
 export async function POST(request: NextRequest) {
   try {
-    const sessionId = getSessionId(request);
-    const userId = await createOrGetUser(sessionId);
-    
     const body = await request.json();
     const { items } = body;
 
@@ -75,32 +49,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate items structure
-    for (const item of items) {
-      if (!item.id || !item.name || typeof item.price !== 'number' || typeof item.quantity !== 'number') {
-        return NextResponse.json(
-          { success: false, error: 'Invalid item structure' },
-          { status: 400 }
-        );
-      }
-    }
-
-    const cart = await saveCart(userId, items as CartItem[]);
-
+    // For Vercel: Just acknowledge the save, cart is managed client-side
     const response = NextResponse.json({
       success: true,
-      cart
+      cart: { id: 'browser-cart', userId: 'local', items, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
     });
-
-    // Set session cookie if it's new
-    if (!request.cookies.get('session_id')) {
-      response.cookies.set('session_id', sessionId, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30 // 30 days
-      });
-    }
 
     return response;
   } catch (error) {
@@ -112,14 +65,10 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// DELETE /api/cart - Clear user's cart
-export async function DELETE(request: NextRequest) {
+// DELETE /api/cart - Clear user's cart (simplified for Vercel)
+export async function DELETE() {
   try {
-    const sessionId = getSessionId(request);
-    const userId = await createOrGetUser(sessionId);
-    
-    await clearCart(userId);
-
+    // For Vercel: Cart is managed client-side
     return NextResponse.json({
       success: true,
       message: 'Cart cleared successfully'

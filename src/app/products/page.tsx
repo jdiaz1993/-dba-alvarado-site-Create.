@@ -86,10 +86,12 @@ export default function Products() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Custom T-Shirts */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                <svg className="w-24 h-24 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M16 3H8C6.9 3 6 3.9 6 5v14c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H8V5h8v14z"/>
-                </svg>
+              <div className="h-48 bg-gray-200 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop"
+                  alt="Custom T-Shirts"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Custom T-Shirts</h3>
@@ -108,10 +110,12 @@ export default function Products() {
 
             {/* Custom Water Bottles */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                <svg className="w-24 h-24 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 3v1H8C6.9 4 6 4.9 6 6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-1V3H9zm7 15H8V6h8v12z"/>
-                </svg>
+              <div className="h-48 bg-gray-200 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&auto=format&fit=crop"
+                  alt="Engraved Water Bottles"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Engraved Water Bottles</h3>
@@ -130,10 +134,12 @@ export default function Products() {
 
             {/* Custom Wood Engravings */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
-                <svg className="w-24 h-24 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
-                </svg>
+              <div className="h-48 bg-gray-200 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1452457807411-4979b707c5be?w=800&auto=format&fit=crop"
+                  alt="Wood Engravings"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Wood Engravings</h3>

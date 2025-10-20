@@ -18,6 +18,13 @@ function CustomOrdersContent() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [selectedProjectType, setSelectedProjectType] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [shippingAddress, setShippingAddress] = useState({
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'United States'
+  });
   const searchParams = useSearchParams();
   const router = useRouter();
   const { addItem } = useCart();
@@ -41,9 +48,16 @@ function CustomOrdersContent() {
     console.log('Form submitted');
     console.log('Selected project type:', selectedProjectType);
     console.log('Quantity:', quantity);
+    console.log('Shipping address:', shippingAddress);
     
     if (!selectedProjectType) {
       alert('Please select a project type');
+      return;
+    }
+
+    // Validate shipping address
+    if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
+      alert('Please fill out all shipping address fields');
       return;
     }
 
@@ -57,19 +71,21 @@ function CustomOrdersContent() {
     console.log('Product info:', productInfo);
     console.log('Adding to cart...');
 
-    // Add to cart
+    // Add to cart with shipping address in the name/description
     try {
+      const shippingInfo = `${shippingAddress.street}, ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.zipCode}, ${shippingAddress.country}`;
+      
       addItem({
         id: `custom-${selectedProjectType}-${Date.now()}`,
-        name: productInfo.name,
+        name: `${productInfo.name} - Ship to: ${shippingInfo}`,
         price: productInfo.basePrice,
       }, quantity);
       
-      console.log('Item added to cart successfully');
+      console.log('Item added to cart successfully with shipping address');
       
       // Show success message and redirect to cart
       setTimeout(() => {
-        alert('Custom order added to cart! Please proceed to checkout.');
+        alert(`Custom order added to cart!\n\nShipping to:\n${shippingInfo}\n\nPlease proceed to checkout.`);
         router.push('/cart');
       }, 100);
     } catch (error) {
@@ -142,8 +158,86 @@ function CustomOrdersContent() {
               </div>
             </div>
 
+            {/* Shipping Address */}
+            <div className="pt-6 border-t">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Shipping Address</h3>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Street Address *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={shippingAddress.street}
+                  onChange={(e) => setShippingAddress({...shippingAddress, street: e.target.value})}
+                  placeholder="123 Main Street, Apt 4"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mt-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    City *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={shippingAddress.city}
+                    onChange={(e) => setShippingAddress({...shippingAddress, city: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    State *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={shippingAddress.state}
+                    onChange={(e) => setShippingAddress({...shippingAddress, state: e.target.value})}
+                    placeholder="CA"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    ZIP Code *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={shippingAddress.zipCode}
+                    onChange={(e) => setShippingAddress({...shippingAddress, zipCode: e.target.value})}
+                    placeholder="90001"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Country *
+                </label>
+                <select
+                  value={shippingAddress.country}
+                  onChange={(e) => setShippingAddress({...shippingAddress, country: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="United States">United States</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Other">Other (International)</option>
+                </select>
+              </div>
+            </div>
+
             {/* Project Details */}
-            <div>
+            <div className="pt-6 border-t">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Project Type *
               </label>

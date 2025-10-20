@@ -1,7 +1,46 @@
+'use client';
 
 import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
+import ProductCarousel from '@/components/ProductCarousel';
 
 export default function Home() {
+  const { addItem } = useCart();
+
+  // Featured ready-to-sell products
+  const featuredProducts = [
+    {
+      id: "ready-tshirt-1",
+      name: "DBA Logo T-Shirt - Black",
+      price: 2500, // $25.00 in cents
+      image: "/assets/images/products/tshirt-black.jpg",
+      description: "Pre-made black t-shirt with DBA logo print",
+    },
+    {
+      id: "ready-bottle-1",
+      name: "Engraved Water Bottle - Floral",
+      price: 3999, // $39.99 in cents
+      image: "/assets/images/products/bottle-floral.jpg",
+      description: "Stainless steel bottle with floral engraving design",
+    },
+    {
+      id: "ready-wood-1",
+      name: "Welcome Sign - Rustic",
+      price: 2999, // $29.99 in cents
+      image: "/assets/images/products/wood-welcome.jpg",
+      description: "Rustic wood welcome sign, ready to hang",
+    },
+  ];
+
+  const handleAddToCart = (product: typeof featuredProducts[0]) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -27,8 +66,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Featured Products Section */}
       <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Featured Products
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Ready-to-ship items available now. Add to cart and checkout instantly!
+            </p>
+          </div>
+          
+          <ProductCarousel products={featuredProducts} onAddToCart={handleAddToCart} />
+          
+          <div className="text-center mt-8">
+            <Link href="/products" className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+              View All Products
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">

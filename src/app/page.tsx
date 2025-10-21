@@ -7,28 +7,35 @@ import ProductCarousel from '@/components/ProductCarousel';
 export default function Home() {
   const { addItem } = useCart();
 
-  // Featured ready-to-sell products
+  // Featured ready-to-sell products - Using your actual gallery images
   const featuredProducts = [
     {
-      id: "ready-tshirt-1",
-      name: "DBA Logo T-Shirt - Black",
-      price: 2500, // $25.00 in cents
-      image: "/assets/images/products/tshirt-black.jpg",
-      description: "Pre-made black t-shirt with DBA logo print",
-    },
-    {
-      id: "ready-bottle-1",
-      name: "Engraved Water Bottle - Floral",
-      price: 3999, // $39.99 in cents
-      image: "/assets/images/products/bottle-floral.jpg",
-      description: "Stainless steel bottle with floral engraving design",
+      id: "ready-water-bottle-1",
+      name: "Engraved Water Bottle",
+      price: 3599, // $35.99 in cents
+      image: "/assets/images/gallery/engraved-water-bottle-example.png",
+      description: "Stainless steel bottle with custom laser engraving",
     },
     {
       id: "ready-wood-1",
-      name: "Welcome Sign - Rustic",
+      name: "Custom Wood Engraving",
+      price: 2599, // $25.99 in cents
+      image: "/assets/images/gallery/wood-engraving-example.jpg",
+      description: "Beautiful wood engraving - custom designs available",
+    },
+    {
+      id: "ready-item-1",
+      name: "Custom Engraved Item",
       price: 2999, // $29.99 in cents
-      image: "/assets/images/products/wood-welcome.jpg",
-      description: "Rustic wood welcome sign, ready to hang",
+      image: "/assets/images/gallery/20251005_144719.jpg",
+      description: "Personalized engraved product",
+    },
+    {
+      id: "ready-item-2",
+      name: "Custom Design",
+      price: 3499, // $34.99 in cents
+      image: "/assets/images/gallery/20251019_171633.jpg",
+      description: "Custom personalized design",
     },
   ];
 

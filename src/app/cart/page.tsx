@@ -27,29 +27,37 @@ function CartContent() {
 		}
 	}, [status, hasCleared, items.length, clear]);
 
-	// Standard domestic shipping is free
-	const standardShippingFee = 0;
-	// Rush shipping costs extra
-	const rushShippingFee = rushShipping ? 1500 : 0; // $15 for rush shipping
+	// Standard domestic shipping costs $3
+	const standardShippingFee = 300; // $3.00 in cents
+	// Rush shipping costs extra on top of standard
+	const rushShippingFee = rushShipping ? 1500 : 0; // +$15 for rush shipping
 	const shippingFee = standardShippingFee + rushShippingFee;
 	const grandTotal = totalCents + shippingFee;
 
 	async function onCheckout() {
 		try {
-			// Add shipping as a line item if rush is selected
-			const checkoutItems = [
-				...items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
-			];
-			
-			// Add rush shipping fee if selected
-			if (rushShipping && rushShippingFee > 0) {
-				checkoutItems.push({
-					id: 'rush-shipping',
-					name: 'Rush Shipping (2-3 days)',
-					price: rushShippingFee,
-					quantity: 1
-				});
-			}
+		// Add shipping as line items
+		const checkoutItems = [
+			...items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
+		];
+		
+		// Always add standard shipping
+		checkoutItems.push({
+			id: 'standard-shipping',
+			name: 'Standard Shipping (5-7 days)',
+			price: standardShippingFee,
+			quantity: 1
+		});
+		
+		// Add rush shipping fee if selected
+		if (rushShipping && rushShippingFee > 0) {
+			checkoutItems.push({
+				id: 'rush-shipping',
+				name: 'Rush Shipping (2-3 days)',
+				price: rushShippingFee,
+				quantity: 1
+			});
+		}
 
 			const res = await fetch("/api/checkout", {
 				method: "POST",
@@ -137,7 +145,7 @@ function CartContent() {
 							{/* Shipping Selection */}
 							<div className="my-4 pt-4 border-t">
 								<p className="text-sm text-gray-600 mb-3">
-									📦 Free standard shipping (5-7 business days)
+									📦 Standard shipping: $3.00 (5-7 business days)
 								</p>
 								<label className="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
 									<input

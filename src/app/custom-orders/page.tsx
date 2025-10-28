@@ -72,6 +72,12 @@ function CustomOrdersContent() {
 
     // If it's shirt printing, redirect to preview page
     if (selectedProjectType === 'shirt-printing') {
+      // Validate shipping address for shirts too
+      if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
+        alert('Please fill out all shipping address fields');
+        return;
+      }
+      
       // Save data to localStorage for preview
       const designUrls = uploadedFiles.map(file => URL.createObjectURL(file));
       const previewData = {

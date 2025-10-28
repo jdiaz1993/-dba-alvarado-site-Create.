@@ -14,6 +14,10 @@ interface DesignData {
 export default function PreviewDesign() {
   const [designData, setDesignData] = useState<any | null>(null);
   const [shirtColor, setShirtColor] = useState('#FFFFFF');
+  const [placement, setPlacement] = useState<'front' | 'back'>('front');
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const router = useRouter();
   const { addItem } = useCart();
 
@@ -42,12 +46,33 @@ export default function PreviewDesign() {
     }
   }, [router]);
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setDragging(true);
+    setDragOffset({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (dragging) {
+      setPosition({
+        x: e.clientX - dragOffset.x,
+        y: e.clientY - dragOffset.y,
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setDragging(false);
+  };
+
   const handleContinueToCart = () => {
     if (!designData) return;
     
-    // Add to cart
+    // Add to cart with placement info
     const shippingInfo = `${designData.shippingAddress.street}, ${designData.shippingAddress.city}, ${designData.shippingAddress.state} ${designData.shippingAddress.zipCode}, ${designData.shippingAddress.country}`;
-    const itemName = `${designData.productInfo.name} - ${designData.color} (Size ${designData.size}) - Ship to: ${shippingInfo}`;
+    const itemName = `${designData.productInfo.name} - ${designData.color} (Size ${designData.size}) - ${placement.toUpperCase()} PRINT - Ship to: ${shippingInfo}`;
     
     addItem({
       id: `custom-shirt-${Date.now()}`,
@@ -75,10 +100,38 @@ export default function PreviewDesign() {
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-8">
+          {/* Placement Controls */}
+          <div className="mb-6 flex gap-4 justify-center">
+            <button
+              onClick={() => setPlacement('front')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                placement === 'front'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Front
+            </button>
+            <button
+              onClick={() => setPlacement('back')}
+              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                placement === 'back'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Back
+            </button>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
             {/* Left: T-Shirt Preview */}
             <div className="flex items-center justify-center">
-              <div className="relative w-72 h-96">
+              <div 
+                className="relative w-72 h-96"
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+              >
                 {/* T-Shirt Shape */}
                 <div 
                   className="absolute inset-0 mx-auto"
@@ -104,13 +157,21 @@ export default function PreviewDesign() {
                     }}
                   />
                   
-                  {/* Design Preview */}
+                  {/* Draggable Design Preview */}
                   {designData.designs.length > 0 && (
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white rounded-lg flex items-center justify-center p-1 shadow-lg border-3 border-gray-600">
+                    <div 
+                      className="absolute w-32 h-32 bg-white rounded-lg flex items-center justify-center p-1 shadow-lg border-3 border-gray-600 cursor-move"
+                      style={{
+                        left: `${position.x}px`,
+                        top: `${position.y}px`,
+                        transform: 'translate(-50%, -50%)'
+                      }}
+                      onMouseDown={handleMouseDown}
+                    >
                       <img 
                         src={designData.designs[0]} 
                         alt="Design preview"
-                        className="max-w-full max-h-full object-contain"
+                        className="max-w-full max-h-full object-contain pointer-events-none"
                       />
                     </div>
                   )}
@@ -146,10 +207,15 @@ export default function PreviewDesign() {
                     <span className="font-semibold">{designData.size}</span>
                   </div>
                   
-                  <div className="flex justify-between py-2 border-b">
-                    <span className="text-gray-600">Quantity:</span>
-                    <span className="font-semibold">{designData.quantity}</span>
-                  </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-gray-600">Quantity:</span>
+                  <span className="font-semibold">{designData.quantity}</span>
+                </div>
+                
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-gray-600">Placement:</span>
+                  <span className="font-semibold capitalize">{placement}</span>
+                </div>
                   
                   <div className="flex justify-between py-2 border-b">
                     <span className="text-gray-600">Price:</span>

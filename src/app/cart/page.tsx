@@ -12,7 +12,7 @@ function CartContent() {
 	const { items, updateQuantity, removeItem, totalCents, clear, isLoading, isSaving, syncError } = useCart();
 	const searchParams = useSearchParams();
 	const [hasCleared, setHasCleared] = useState(false);
-	const [shippingType, setShippingType] = useState<'domestic' | 'international'>('domestic');
+	const [rushShipping, setRushShipping] = useState(false);
 
 	const status = useMemo(() => {
 		if (searchParams.get("success")) return "success" as const;
@@ -27,21 +27,29 @@ function CartContent() {
 		}
 	}, [status, hasCleared, items.length, clear]);
 
-	const shippingFee = shippingType === 'domestic' ? 500 : 1000; // $5 or $10 in cents
+	// Standard domestic shipping is free
+	const standardShippingFee = 0;
+	// Rush shipping costs extra
+	const rushShippingFee = rushShipping ? 1500 : 0; // $15 for rush shipping
+	const shippingFee = standardShippingFee + rushShippingFee;
 	const grandTotal = totalCents + shippingFee;
 
 	async function onCheckout() {
 		try {
-			// Add shipping as a line item
+			// Add shipping as a line item if rush is selected
 			const checkoutItems = [
 				...items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
-				{ 
-					id: 'shipping', 
-					name: `Shipping (${shippingType === 'domestic' ? 'Domestic' : 'International'})`, 
-					price: shippingFee, 
-					quantity: 1 
-				}
 			];
+			
+			// Add rush shipping fee if selected
+			if (rushShipping && rushShippingFee > 0) {
+				checkoutItems.push({
+					id: 'rush-shipping',
+					name: 'Rush Shipping (2-3 days)',
+					price: rushShippingFee,
+					quantity: 1
+				});
+			}
 
 			const res = await fetch("/api/checkout", {
 				method: "POST",
@@ -128,39 +136,24 @@ function CartContent() {
 							
 							{/* Shipping Selection */}
 							<div className="my-4 pt-4 border-t">
-								<label className="block text-sm font-medium text-gray-700 mb-2">
-									Shipping Method
+								<p className="text-sm text-gray-600 mb-3">
+									📦 Free standard shipping (5-7 business days)
+								</p>
+								<label className="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
+									<input
+										type="checkbox"
+										checked={rushShipping}
+										onChange={() => setRushShipping(!rushShipping)}
+										className="mr-3 w-5 h-5"
+									/>
+									<div className="flex-1 flex justify-between items-center">
+										<div>
+											<span className="font-medium">Rush Shipping</span>
+											<p className="text-xs text-gray-500">2-3 business days</p>
+										</div>
+										<span className="text-gray-700 font-semibold">+$15.00</span>
+									</div>
 								</label>
-								<div className="space-y-2">
-									<label className="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-										<input
-											type="radio"
-											name="shipping"
-											value="domestic"
-											checked={shippingType === 'domestic'}
-											onChange={() => setShippingType('domestic')}
-											className="mr-3"
-										/>
-										<div className="flex-1 flex justify-between items-center">
-											<span className="font-medium">Domestic Shipping</span>
-											<span className="text-gray-700">$5.00</span>
-										</div>
-									</label>
-									<label className="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-										<input
-											type="radio"
-											name="shipping"
-											value="international"
-											checked={shippingType === 'international'}
-											onChange={() => setShippingType('international')}
-											className="mr-3"
-										/>
-										<div className="flex-1 flex justify-between items-center">
-											<span className="font-medium">International Shipping</span>
-											<span className="text-gray-700">$10.00</span>
-										</div>
-									</label>
-								</div>
 							</div>
 
 							<div className="flex justify-between text-gray-700 mb-2 pt-4 border-t">

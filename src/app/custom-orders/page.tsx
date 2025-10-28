@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import ImageUpload from '../../components/ImageUpload';
+import DesignPreview from '../../components/DesignPreview';
 import { useCart } from '../../context/CartContext';
 
 // Product pricing
@@ -384,6 +385,15 @@ function CustomOrdersContent() {
                   </p>
                 )}
               </div>
+            )}
+
+            {/* Live Design Preview */}
+            {selectedProjectType === 'shirt-printing' && (
+              <DesignPreview 
+                productType={selectedProjectType} 
+                color={shirtColor}
+                uploadedFiles={uploadedFiles}
+              />
             )}
 
             <div>

@@ -335,22 +335,49 @@ function CustomOrdersContent() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Shirt Size *
                 </label>
-                <div className="grid grid-cols-4 gap-3">
-                  {['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'].map((size) => (
-                    <button
-                      key={size}
-                      type="button"
-                      onClick={() => setShirtSize(size)}
-                      className={`py-3 px-4 border-2 rounded-md font-medium transition-all ${
-                        shirtSize === size
-                          ? 'border-purple-600 bg-purple-50 text-purple-900'
-                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+                
+                {/* Youth Sizes */}
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Youth Sizes</p>
+                  <div className="grid grid-cols-4 gap-3">
+                    {['YS', 'YM', 'YL', 'YXL'].map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setShirtSize(size)}
+                        className={`py-3 px-4 border-2 rounded-md font-medium transition-all ${
+                          shirtSize === size
+                            ? 'border-purple-600 bg-purple-50 text-purple-900'
+                            : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Adult Sizes */}
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Adult Sizes</p>
+                  <div className="grid grid-cols-4 gap-3">
+                    {['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'].map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setShirtSize(size)}
+                        className={`py-3 px-4 border-2 rounded-md font-medium transition-all ${
+                          shirtSize === size
+                            ? 'border-purple-600 bg-purple-50 text-purple-900'
+                            : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
                 {shirtSize && (
                   <p className="mt-2 text-sm text-gray-600">
                     Selected: <span className="font-semibold">{shirtSize}</span>

@@ -13,7 +13,7 @@ export default function Home() {
       id: "ready-water-bottle-1",
       name: "Engraved Water Bottle",
       price: 3599, // $35.99 in cents
-      image: "/assets/images/gallery/engraved-water-bottle-example.png",
+      image: "/assets/images/gallery/20251019_183918.jpg",
       description: "Stainless steel bottle with custom laser engraving",
     },
     {

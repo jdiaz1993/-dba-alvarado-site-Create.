@@ -18,6 +18,7 @@ function CustomOrdersContent() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [selectedProjectType, setSelectedProjectType] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [shirtColor, setShirtColor] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     street: '',
     city: '',
@@ -55,6 +56,12 @@ function CustomOrdersContent() {
       return;
     }
 
+    // Validate shirt color if shirt printing is selected
+    if (selectedProjectType === 'shirt-printing' && !shirtColor) {
+      alert('Please select a shirt color');
+      return;
+    }
+
     // Validate shipping address
     if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
       alert('Please fill out all shipping address fields');
@@ -75,9 +82,15 @@ function CustomOrdersContent() {
     try {
       const shippingInfo = `${shippingAddress.street}, ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.zipCode}, ${shippingAddress.country}`;
       
+      // Build item name with color if it's a shirt
+      let itemName = productInfo.name;
+      if (selectedProjectType === 'shirt-printing' && shirtColor) {
+        itemName = `${productInfo.name} - ${shirtColor}`;
+      }
+      
       addItem({
         id: `custom-${selectedProjectType}-${Date.now()}`,
-        name: `${productInfo.name} - Ship to: ${shippingInfo}`,
+        name: `${itemName} - Ship to: ${shippingInfo}`,
         price: productInfo.basePrice,
       }, quantity);
       
@@ -275,6 +288,36 @@ function CustomOrdersContent() {
               )}
             </div>
 
+            {/* Shirt Color Selection - Only show when shirt printing is selected */}
+            {selectedProjectType === 'shirt-printing' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Shirt Color *
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {['White', 'Black', 'Navy', 'Gray', 'Red', 'Blue', 'Green', 'Pink'].map((color) => (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setShirtColor(color)}
+                      className={`py-3 px-4 border-2 rounded-md font-medium transition-all ${
+                        shirtColor === color
+                          ? 'border-purple-600 bg-purple-50 text-purple-900'
+                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700'
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+                {shirtColor && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    Selected: <span className="font-semibold">{shirtColor}</span>
+                  </p>
+                )}
+              </div>
+            )}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Quantity *
@@ -401,7 +444,7 @@ function CustomOrdersContent() {
 
             <button
               type="submit"
-              disabled={!selectedProjectType}
+              disabled={!selectedProjectType || (selectedProjectType === 'shirt-printing' && !shirtColor)}
               onClick={(e) => {
                 console.log('Button clicked');
                 if (!selectedProjectType) {
@@ -410,7 +453,7 @@ function CustomOrdersContent() {
                 }
               }}
               className={`w-full py-3 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold transition-colors ${
-                selectedProjectType
+                selectedProjectType && !(selectedProjectType === 'shirt-printing' && !shirtColor)
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}

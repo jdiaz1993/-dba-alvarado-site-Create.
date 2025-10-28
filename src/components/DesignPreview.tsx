@@ -43,16 +43,36 @@ export default function DesignPreview({ productType, color, uploadedFiles }: Des
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Design Preview</h3>
       
       <div className="flex items-center justify-center py-8">
-        {/* Simple T-Shirt Layout */}
-        <div className="relative" style={{ width: '220px', height: '260px' }}>
-          {/* Main Shirt Body */}
+        {/* Realistic T-Shirt Layout - Front View */}
+        <div className="relative" style={{ width: '240px', height: '300px' }}>
+          {/* Neckline */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-6 flex items-center justify-center">
+            <div 
+              className="w-full h-4 rounded-b-2xl border-2 border-gray-700"
+              style={{ backgroundColor: shirtColor }}
+            />
+          </div>
+          
+          {/* Left Sleeve */}
           <div 
-            className="absolute top-12 left-0 right-0 mx-auto w-48 h-52 rounded-b-3xl shadow-xl border-3 border-gray-700"
+            className="absolute top-8 left-2 w-20 h-28 rounded-r-2xl border-3 border-gray-700 shadow-md"
+            style={{ backgroundColor: shirtColor }}
+          />
+          
+          {/* Right Sleeve */}
+          <div 
+            className="absolute top-8 right-2 w-20 h-28 rounded-l-2xl border-3 border-gray-700 shadow-md"
+            style={{ backgroundColor: shirtColor }}
+          />
+          
+          {/* Main Shirt Body - Rectangular with rounded bottom */}
+          <div 
+            className="absolute top-8 left-1/2 -translate-x-1/2 w-48 h-52 rounded-b-xl border-3 border-gray-700 shadow-lg"
             style={{ backgroundColor: shirtColor }}
           >
-            {/* Design Preview */}
+            {/* Design Preview - Centered on chest */}
             {imageUrls.length > 0 && (
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white bg-opacity-95 rounded-lg flex items-center justify-center p-1 shadow-lg border-2 border-gray-400">
+              <div className="absolute top-20 left-1/2 -translate-x-1/2 w-36 h-36 bg-white bg-opacity-95 rounded-lg flex items-center justify-center p-2 shadow-md border-3 border-gray-400">
                 <img 
                   src={imageUrls[0]} 
                   alt="Design preview"
@@ -61,18 +81,6 @@ export default function DesignPreview({ productType, color, uploadedFiles }: Des
               </div>
             )}
           </div>
-          
-          {/* Left Sleeve */}
-          <div 
-            className="absolute top-12 left-4 w-16 h-20 rounded-r-2xl border-2 border-gray-700"
-            style={{ backgroundColor: shirtColor }}
-          />
-          
-          {/* Right Sleeve */}
-          <div 
-            className="absolute top-12 right-4 w-16 h-20 rounded-l-2xl border-2 border-gray-700"
-            style={{ backgroundColor: shirtColor }}
-          />
         </div>
       </div>
 

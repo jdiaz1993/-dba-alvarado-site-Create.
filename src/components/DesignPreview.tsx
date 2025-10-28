@@ -42,34 +42,37 @@ export default function DesignPreview({ productType, color, uploadedFiles }: Des
     <div className="mt-6 p-6 bg-gray-50 rounded-lg border-2 border-gray-200">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Design Preview</h3>
       
-      <div className="flex items-center justify-center">
-        <div className="relative">
-          {/* Shirt SVG Preview */}
-          <svg width="200" height="240" viewBox="0 0 200 240" className="drop-shadow-lg">
-            {/* Shirt Body */}
-            <path
-              d="M60 40 Q60 20 80 20 L120 20 Q140 20 140 40 L140 180 Q140 200 120 200 L80 200 Q60 200 60 180 Z"
-              fill={shirtColor}
-              stroke="#333"
-              strokeWidth="2"
-            />
-            {/* Shirt sleeves */}
-            <path d="M60 80 L40 120 L50 130 L60 110 Z" fill={shirtColor} stroke="#333" strokeWidth="2" />
-            <path d="M140 80 L160 120 L150 130 L140 110 Z" fill={shirtColor} stroke="#333" strokeWidth="2" />
-            
-            {/* Design Preview Area */}
+      <div className="flex items-center justify-center py-8">
+        {/* Simple T-Shirt Layout */}
+        <div className="relative" style={{ width: '220px', height: '260px' }}>
+          {/* Main Shirt Body */}
+          <div 
+            className="absolute top-12 left-0 right-0 mx-auto w-48 h-52 rounded-b-3xl shadow-xl border-3 border-gray-700"
+            style={{ backgroundColor: shirtColor }}
+          >
+            {/* Design Preview */}
             {imageUrls.length > 0 && (
-              <foreignObject x="70" y="90" width="60" height="60">
-                <div className="w-full h-full flex items-center justify-center bg-white/80 rounded">
-                  <img 
-                    src={imageUrls[0]} 
-                    alt="Design preview"
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-              </foreignObject>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white bg-opacity-95 rounded-lg flex items-center justify-center p-1 shadow-lg border-2 border-gray-400">
+                <img 
+                  src={imageUrls[0]} 
+                  alt="Design preview"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
             )}
-          </svg>
+          </div>
+          
+          {/* Left Sleeve */}
+          <div 
+            className="absolute top-12 left-4 w-16 h-20 rounded-r-2xl border-2 border-gray-700"
+            style={{ backgroundColor: shirtColor }}
+          />
+          
+          {/* Right Sleeve */}
+          <div 
+            className="absolute top-12 right-4 w-16 h-20 rounded-l-2xl border-2 border-gray-700"
+            style={{ backgroundColor: shirtColor }}
+          />
         </div>
       </div>
 

@@ -70,7 +70,24 @@ function CustomOrdersContent() {
       return;
     }
 
-    // Validate shipping address
+    // If it's shirt printing, redirect to preview page
+    if (selectedProjectType === 'shirt-printing') {
+      // Save data to localStorage for preview
+      const designUrls = uploadedFiles.map(file => URL.createObjectURL(file));
+      const previewData = {
+        color: shirtColor,
+        size: shirtSize,
+        quantity: quantity,
+        designs: designUrls,
+        shippingAddress: shippingAddress,
+        productInfo: productPrices[selectedProjectType]
+      };
+      localStorage.setItem('previewDesignData', JSON.stringify(previewData));
+      router.push('/preview-design');
+      return;
+    }
+
+    // Validate shipping address for non-shirt orders
     if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
       alert('Please fill out all shipping address fields');
       return;
@@ -90,19 +107,9 @@ function CustomOrdersContent() {
     try {
       const shippingInfo = `${shippingAddress.street}, ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.zipCode}, ${shippingAddress.country}`;
       
-      // Build item name with color and size if it's a shirt
-      let itemName = productInfo.name;
-      if (selectedProjectType === 'shirt-printing') {
-        if (shirtColor && shirtSize) {
-          itemName = `${productInfo.name} - ${shirtColor} (Size ${shirtSize})`;
-        } else if (shirtColor) {
-          itemName = `${productInfo.name} - ${shirtColor}`;
-        }
-      }
-      
       addItem({
         id: `custom-${selectedProjectType}-${Date.now()}`,
-        name: `${itemName} - Ship to: ${shippingInfo}`,
+        name: `${productInfo.name} - Ship to: ${shippingInfo}`,
         price: productInfo.basePrice,
       }, quantity);
       

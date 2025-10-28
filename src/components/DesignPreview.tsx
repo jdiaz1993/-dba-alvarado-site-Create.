@@ -43,36 +43,35 @@ export default function DesignPreview({ productType, color, uploadedFiles }: Des
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Design Preview</h3>
       
       <div className="flex items-center justify-center py-8">
-        {/* Realistic T-Shirt Layout - Front View */}
-        <div className="relative" style={{ width: '240px', height: '300px' }}>
-          {/* Neckline */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-6 flex items-center justify-center">
-            <div 
-              className="w-full h-4 rounded-b-2xl border-2 border-gray-700"
-              style={{ backgroundColor: shirtColor }}
-            />
-          </div>
-          
-          {/* Left Sleeve */}
+        <div className="relative w-72 h-96">
+          {/* T-Shirt Shape using CSS */}
           <div 
-            className="absolute top-8 left-2 w-20 h-28 rounded-r-2xl border-3 border-gray-700 shadow-md"
-            style={{ backgroundColor: shirtColor }}
-          />
-          
-          {/* Right Sleeve */}
-          <div 
-            className="absolute top-8 right-2 w-20 h-28 rounded-l-2xl border-3 border-gray-700 shadow-md"
-            style={{ backgroundColor: shirtColor }}
-          />
-          
-          {/* Main Shirt Body - Rectangular with rounded bottom */}
-          <div 
-            className="absolute top-8 left-1/2 -translate-x-1/2 w-48 h-52 rounded-b-xl border-3 border-gray-700 shadow-lg"
-            style={{ backgroundColor: shirtColor }}
+            className="absolute inset-0 mx-auto"
+            style={{ 
+              width: '200px',
+              height: '240px',
+              backgroundColor: shirtColor,
+              borderRadius: '12px',
+              border: '4px solid #1f2937',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+              clipPath: 'polygon(15% 0%, 85% 0%, 100% 15%, 100% 100%, 0% 100%, 0% 15%)'
+            }}
           >
-            {/* Design Preview - Centered on chest */}
+            {/* Neck hole */}
+            <div 
+              className="absolute top-2 left-1/2 -translate-x-1/2"
+              style={{ 
+                width: '60px',
+                height: '20px',
+                borderRadius: '50px 50px 0 0',
+                backgroundColor: '#f9fafb',
+                border: '3px solid #1f2937'
+              }}
+            />
+            
+            {/* Design Preview */}
             {imageUrls.length > 0 && (
-              <div className="absolute top-20 left-1/2 -translate-x-1/2 w-36 h-36 bg-white bg-opacity-95 rounded-lg flex items-center justify-center p-2 shadow-md border-3 border-gray-400">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white rounded-lg flex items-center justify-center p-1 shadow-lg border-3 border-gray-600">
                 <img 
                   src={imageUrls[0]} 
                   alt="Design preview"
@@ -81,6 +80,18 @@ export default function DesignPreview({ productType, color, uploadedFiles }: Des
               </div>
             )}
           </div>
+          
+          {/* Left Sleeve */}
+          <div 
+            className="absolute top-8 left-2 w-12 h-32 rounded-r-full"
+            style={{ backgroundColor: shirtColor, border: '3px solid #1f2937', boxShadow: '0 5px 15px rgba(0,0,0,0.15)' }}
+          />
+          
+          {/* Right Sleeve */}
+          <div 
+            className="absolute top-8 right-2 w-12 h-32 rounded-l-full"
+            style={{ backgroundColor: shirtColor, border: '3px solid #1f2937', boxShadow: '0 5px 15px rgba(0,0,0,0.15)' }}
+          />
         </div>
       </div>
 

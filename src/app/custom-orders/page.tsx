@@ -19,6 +19,7 @@ function CustomOrdersContent() {
   const [selectedProjectType, setSelectedProjectType] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [shirtColor, setShirtColor] = useState('');
+  const [shirtSize, setShirtSize] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     street: '',
     city: '',
@@ -62,6 +63,12 @@ function CustomOrdersContent() {
       return;
     }
 
+    // Validate shirt size if shirt printing is selected
+    if (selectedProjectType === 'shirt-printing' && !shirtSize) {
+      alert('Please select a shirt size');
+      return;
+    }
+
     // Validate shipping address
     if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
       alert('Please fill out all shipping address fields');
@@ -82,10 +89,14 @@ function CustomOrdersContent() {
     try {
       const shippingInfo = `${shippingAddress.street}, ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.zipCode}, ${shippingAddress.country}`;
       
-      // Build item name with color if it's a shirt
+      // Build item name with color and size if it's a shirt
       let itemName = productInfo.name;
-      if (selectedProjectType === 'shirt-printing' && shirtColor) {
-        itemName = `${productInfo.name} - ${shirtColor}`;
+      if (selectedProjectType === 'shirt-printing') {
+        if (shirtColor && shirtSize) {
+          itemName = `${productInfo.name} - ${shirtColor} (Size ${shirtSize})`;
+        } else if (shirtColor) {
+          itemName = `${productInfo.name} - ${shirtColor}`;
+        }
       }
       
       addItem({
@@ -318,6 +329,36 @@ function CustomOrdersContent() {
               </div>
             )}
 
+            {/* Shirt Size Selection - Only show when shirt printing is selected */}
+            {selectedProjectType === 'shirt-printing' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Shirt Size *
+                </label>
+                <div className="grid grid-cols-4 gap-3">
+                  {['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'].map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => setShirtSize(size)}
+                      className={`py-3 px-4 border-2 rounded-md font-medium transition-all ${
+                        shirtSize === size
+                          ? 'border-purple-600 bg-purple-50 text-purple-900'
+                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+                {shirtSize && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    Selected: <span className="font-semibold">{shirtSize}</span>
+                  </p>
+                )}
+              </div>
+            )}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Quantity *
@@ -444,7 +485,7 @@ function CustomOrdersContent() {
 
             <button
               type="submit"
-              disabled={!selectedProjectType || (selectedProjectType === 'shirt-printing' && !shirtColor)}
+              disabled={!selectedProjectType || (selectedProjectType === 'shirt-printing' && (!shirtColor || !shirtSize))}
               onClick={(e) => {
                 console.log('Button clicked');
                 if (!selectedProjectType) {
@@ -453,7 +494,7 @@ function CustomOrdersContent() {
                 }
               }}
               className={`w-full py-3 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold transition-colors ${
-                selectedProjectType && !(selectedProjectType === 'shirt-printing' && !shirtColor)
+                selectedProjectType && !(selectedProjectType === 'shirt-printing' && (!shirtColor || !shirtSize))
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}

@@ -131,7 +131,7 @@ export default function Home() {
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee?w=800&h=800&fit=crop&q=80" 
+                  src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&h=800&fit=crop&q=80" 
                   alt="Plain Long Sleeve T-Shirt"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />

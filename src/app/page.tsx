@@ -95,56 +95,161 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      {/* Product Categories Section */}
+      <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Services
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We specialize in multiple aspects of personalization and customization
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Shirt Printing */}
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {/* T-Shirts */}
+            <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-white flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-200 to-blue-400 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Shirt Printing</h3>
-                <p className="text-gray-600 mb-6">
-                  High-quality custom shirt printing with various techniques including screen printing, 
-                  vinyl heat transfer, and embroidery. Perfect for events, teams, and personal use.
-                </p>
-                <Link href="/shirt-prints" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                  Learn More
-                </Link>
               </div>
-            </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">T-Shirts</h3>
+              </div>
+            </Link>
 
-            {/* Engravings */}
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
+            {/* Hoodies */}
+            <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-gray-800 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-gray-700 to-gray-900 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Engravings</h3>
-                <p className="text-gray-600 mb-6">
-                  Precision engraving on water bottles, wood, metal, and more. 
-                  Create lasting personalized items with our professional engraving services.
-                </p>
-                <Link href="/engravings" className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                  Learn More
-                </Link>
               </div>
-            </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Hoodies</h3>
+              </div>
+            </Link>
+
+            {/* Long Sleeve T-Shirts */}
+            <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-gray-300 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-gray-200 to-gray-400 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">YOUR TEAM DESIGN</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Long Sleeve T-Shirts</h3>
+              </div>
+            </Link>
+
+            {/* Jackets */}
+            <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-orange-400 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-orange-300 to-orange-500 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Jackets</h3>
+              </div>
+            </Link>
+
+            {/* Hats */}
+            <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-blue-300 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-200 to-blue-400 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-24 h-24 mx-auto mb-2 bg-white rounded-full shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">DESIGN</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Hats</h3>
+              </div>
+            </Link>
+
+            {/* Bags */}
+            <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-blue-600 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-500 to-blue-700 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">FAMILY VIBES</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Bags</h3>
+              </div>
+            </Link>
+
+            {/* Polo Shirts */}
+            <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-red-500 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-red-400 to-red-600 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Polo Shirts</h3>
+              </div>
+            </Link>
+
+            {/* Holiday Gifts */}
+            <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-green-400 flex items-center justify-center p-4">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-green-300 to-green-500 rounded-lg"></div>
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-700">HOLIDAY GIFTS</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Holiday Gifts</h3>
+              </div>
+            </Link>
           </div>
         </div>
       </section>

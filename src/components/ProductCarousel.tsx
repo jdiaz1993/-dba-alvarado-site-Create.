@@ -152,3 +152,6 @@ export default function ProductCarousel({ products, onAddToCart }: ProductCarous
     </div>
   );
 }
+
+
+

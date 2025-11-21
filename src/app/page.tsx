@@ -98,20 +98,19 @@ export default function Home() {
       {/* Product Categories Section */}
       <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {/* T-Shirts */}
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-white flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-200 to-blue-400 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/products/plain-tshirt.jpg" 
+                  alt="Plain T-Shirt"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23f3f4f6" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%236b7280" font-family="sans-serif" font-size="18"%3ET-Shirt Image%3C/text%3E%3C/svg%3E';
+                  }}
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">T-Shirts</h3>
@@ -120,17 +119,16 @@ export default function Home() {
 
             {/* Hoodies */}
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-gray-800 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-gray-700 to-gray-900 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/products/plain-hoodie.jpg" 
+                  alt="Plain Hoodie"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%231f2937" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3EHoodie Image%3C/text%3E%3C/svg%3E';
+                  }}
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Hoodies</h3>
@@ -139,17 +137,16 @@ export default function Home() {
 
             {/* Long Sleeve T-Shirts */}
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-gray-300 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-gray-200 to-gray-400 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">YOUR TEAM DESIGN</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/products/plain-longsleeve.jpg" 
+                  alt="Plain Long Sleeve T-Shirt"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23d1d5db" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%231f2937" font-family="sans-serif" font-size="16"%3ELong Sleeve Image%3C/text%3E%3C/svg%3E';
+                  }}
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Long Sleeve T-Shirts</h3>
@@ -158,55 +155,34 @@ export default function Home() {
 
             {/* Jackets */}
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-orange-400 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-orange-300 to-orange-500 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/products/plain-jacket.jpg" 
+                  alt="Plain Jacket"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23fb923c" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3EJacket Image%3C/text%3E%3C/svg%3E';
+                  }}
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Jackets</h3>
               </div>
             </Link>
 
-            {/* Hats */}
+            {/* Bags (Tote Bag) */}
             <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-blue-300 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-200 to-blue-400 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-24 h-24 mx-auto mb-2 bg-white rounded-full shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">DESIGN</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Hats</h3>
-              </div>
-            </Link>
-
-            {/* Bags */}
-            <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-blue-600 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-500 to-blue-700 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">FAMILY VIBES</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/products/plain-tote-bag.jpg" 
+                  alt="Plain Tote Bag"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%232563eb" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3ETote Bag Image%3C/text%3E%3C/svg%3E';
+                  }}
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Bags</h3>
@@ -215,39 +191,19 @@ export default function Home() {
 
             {/* Polo Shirts */}
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-red-500 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-red-400 to-red-600 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">YOUR DESIGN HERE</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/products/plain-polo.jpg" 
+                  alt="Plain Polo Shirt"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23ef4444" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3EPolo Shirt Image%3C/text%3E%3C/svg%3E';
+                  }}
+                />
               </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Polo Shirts</h3>
-              </div>
-            </Link>
-
-            {/* Holiday Gifts */}
-            <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-green-400 flex items-center justify-center p-4">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-green-300 to-green-500 rounded-lg"></div>
-                    <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 mx-auto mb-2 bg-white rounded-lg shadow-lg flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-700">HOLIDAY GIFTS</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Holiday Gifts</h3>
               </div>
             </Link>
           </div>

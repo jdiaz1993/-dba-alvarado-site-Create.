@@ -107,6 +107,12 @@ export default function Home() {
                   alt="Plain T-Shirt"
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                   style={{ maxWidth: '100%', maxHeight: '100%' }}
+                  onLoad={() => console.log('T-shirt image loaded successfully')}
+                  onError={(e) => {
+                    console.error('Failed to load t-shirt image:', e);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
                 />
               </div>
               <div className="p-4 text-center">
@@ -122,6 +128,12 @@ export default function Home() {
                   alt="Plain Hoodie"
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                   style={{ maxWidth: '100%', maxHeight: '100%' }}
+                  onLoad={() => console.log('Hoodie image loaded successfully')}
+                  onError={(e) => {
+                    console.error('Failed to load hoodie image:', e);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
                 />
               </div>
               <div className="p-4 text-center">

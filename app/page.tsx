@@ -1,65 +1,233 @@
-import Image from "next/image";
+const productCategories = [
+  {
+    id: "t-shirts",
+    title: "T-Shirts",
+    products: [
+      { 
+        color: "bg-black", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-green-400",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+      { 
+        color: "bg-green-500", 
+        design: "YOUR LOGO HERE", 
+        accent: "text-white",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+    ],
+  },
+  {
+    id: "hoodies",
+    title: "Hoodies",
+    products: [
+      { 
+        color: "bg-black", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+      { 
+        color: "bg-sky-200", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-gray-800",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+    ],
+  },
+  {
+    id: "long-sleeve",
+    title: "Long Sleeve T-Shirts",
+    products: [
+      { 
+        color: "bg-gray-400", 
+        design: "YOUR TEAM DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+      { 
+        color: "bg-blue-500", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+    ],
+  },
+  {
+    id: "jackets",
+    title: "Jackets",
+    products: [
+      { 
+        color: "bg-orange-500", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-black",
+        shape: "rounded-lg",
+        size: "aspect-square"
+      },
+      { 
+        color: "bg-blue-600", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-lg",
+        size: "aspect-square"
+      },
+    ],
+  },
+  {
+    id: "hats",
+    title: "Hats",
+    products: [
+      { 
+        color: "bg-sky-200", 
+        design: "DESIGN HERE", 
+        accent: "text-gray-800",
+        shape: "rounded-full",
+        size: "aspect-square"
+      },
+      { 
+        color: "bg-red-600", 
+        design: "YOUR UNIVERSITY", 
+        accent: "text-white",
+        shape: "rounded-full",
+        size: "aspect-square"
+      },
+      { 
+        color: "bg-green-600", 
+        design: "DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-full",
+        size: "aspect-square"
+      },
+    ],
+  },
+  {
+    id: "bags",
+    title: "Bags",
+    products: [
+      { 
+        color: "bg-blue-900", 
+        design: "U", 
+        accent: "text-white",
+        shape: "rounded-lg",
+        size: "aspect-[4/5]"
+      },
+      { 
+        color: "bg-white border-2 border-gray-300", 
+        design: "FAMILY VIBES", 
+        accent: "text-purple-600",
+        shape: "rounded-lg",
+        size: "aspect-[4/5]"
+      },
+      { 
+        color: "bg-red-500", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-lg",
+        size: "aspect-square"
+      },
+    ],
+  },
+  {
+    id: "polo-shirts",
+    title: "Polo Shirts",
+    products: [
+      { 
+        color: "bg-red-600", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+      { 
+        color: "bg-gray-700", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-t-lg",
+        size: "aspect-[3/4]"
+      },
+    ],
+  },
+  {
+    id: "holiday-gifts",
+    title: "Holiday Gifts",
+    products: [
+      { 
+        color: "bg-green-600", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-lg",
+        size: "aspect-[3/4]"
+      },
+      { 
+        color: "bg-white border-2 border-gray-300", 
+        design: "LOGO HERE", 
+        accent: "text-gray-800",
+        shape: "rounded-lg",
+        size: "aspect-square"
+      },
+      { 
+        color: "bg-blue-500", 
+        design: "", 
+        accent: "text-white",
+        shape: "rounded-full",
+        size: "aspect-square"
+      },
+      { 
+        color: "bg-red-600", 
+        design: "YOUR DESIGN HERE", 
+        accent: "text-white",
+        shape: "rounded-lg",
+        size: "aspect-[4/3]"
+      },
+    ],
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-gray-50 dark:bg-black">
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            Custom Products
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-2 text-base text-gray-600 dark:text-gray-300">
+            Design your own custom merchandise
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {productCategories.map((category) => (
+            <div
+              key={category.id}
+              className="group cursor-pointer space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:border-gray-300 hover:shadow-md dark:border-gray-800 dark:bg-gray-900"
+            >
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {category.title}
+              </h2>
+              <div className="grid grid-cols-2 gap-2.5">
+                {category.products.map((product, idx) => (
+                  <div
+                    key={idx}
+                    className={`relative overflow-hidden ${product.shape} ${product.size} ${product.color} flex items-center justify-center p-1.5 transition-transform group-hover:scale-105`}
+                  >
+                    <span
+                      className={`text-center text-[9px] sm:text-[10px] font-bold ${product.accent} break-words leading-tight px-1`}
+                    >
+                      {product.design}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -103,16 +103,9 @@ export default function Home() {
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/images/products/plain-tshirt.png" 
+                  src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop&q=80" 
                   alt="Plain T-Shirt"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  style={{ maxWidth: '100%', maxHeight: '100%' }}
-                  onLoad={() => console.log('T-shirt image loaded successfully')}
-                  onError={(e) => {
-                    console.error('Failed to load t-shirt image:', e);
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="p-4 text-center">
@@ -124,16 +117,9 @@ export default function Home() {
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/images/products/plain-hoodie.jpg" 
+                  src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop&q=80" 
                   alt="Plain Hoodie"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  style={{ maxWidth: '100%', maxHeight: '100%' }}
-                  onLoad={() => console.log('Hoodie image loaded successfully')}
-                  onError={(e) => {
-                    console.error('Failed to load hoodie image:', e);
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="p-4 text-center">
@@ -145,13 +131,9 @@ export default function Home() {
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/images/products/plain-longsleeve.jpg" 
+                  src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee?w=800&h=800&fit=crop&q=80" 
                   alt="Plain Long Sleeve T-Shirt"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23d1d5db" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%231f2937" font-family="sans-serif" font-size="16"%3ELong Sleeve Image%3C/text%3E%3C/svg%3E';
-                  }}
                 />
               </div>
               <div className="p-4 text-center">
@@ -159,35 +141,13 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Jackets */}
-            <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-              <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/assets/images/products/plain-jacket.jpg" 
-                  alt="Plain Jacket"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23fb923c" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3EJacket Image%3C/text%3E%3C/svg%3E';
-                  }}
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Jackets</h3>
-              </div>
-            </Link>
-
             {/* Bags (Tote Bag) */}
             <Link href="/custom-orders" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/images/products/plain-tote-bag.jpg" 
+                  src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=800&fit=crop&q=80" 
                   alt="Plain Tote Bag"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%232563eb" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3ETote Bag Image%3C/text%3E%3C/svg%3E';
-                  }}
                 />
               </div>
               <div className="p-4 text-center">
@@ -199,13 +159,9 @@ export default function Home() {
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/images/products/plain-polo.jpg" 
+                  src="https://images.unsplash.com/photo-1594938291221-94f18b0f3c12?w=800&h=800&fit=crop&q=80" 
                   alt="Plain Polo Shirt"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Crect fill="%23ef4444" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23ffffff" font-family="sans-serif" font-size="18"%3EPolo Shirt Image%3C/text%3E%3C/svg%3E';
-                  }}
                 />
               </div>
               <div className="p-4 text-center">

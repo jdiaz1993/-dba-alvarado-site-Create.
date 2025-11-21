@@ -103,7 +103,7 @@ export default function Home() {
             <Link href="/custom-orders?type=shirt-printing" className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
               <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/images/products/plain-tshirt.jpg" 
+                  src="/assets/images/products/plain-tshirt.png" 
                   alt="Plain T-Shirt"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {

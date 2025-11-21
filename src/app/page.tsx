@@ -151,7 +151,7 @@ export default function Home() {
                 />
               </div>
               <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Bags</h3>
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Tote Bag</h3>
               </div>
             </Link>
 

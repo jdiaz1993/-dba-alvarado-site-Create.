@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useCart } from '@/context/CartContext';
 import ProductCarousel from '@/components/ProductCarousel';
 
@@ -83,24 +83,64 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
-      {/* Hero Section */}
-      <section className="bg-primary text-white py-5" style={{ background: 'linear-gradient(to right, #9333ea, #7e22ce)' }}>
-        <Container>
-          <div className="text-center py-5">
-            <h1 className="display-4 fw-bold mb-4">
-              Welcome to DBA Customization
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
+      {/* Modern Hero Section */}
+      <section style={{ 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        padding: '80px 0',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+          pointerEvents: 'none'
+        }}></div>
+        <Container style={{ position: 'relative', zIndex: 1 }}>
+          <div className="text-center text-white" style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <h1 style={{ 
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+              fontWeight: 700, 
+              marginBottom: '24px',
+              lineHeight: 1.2,
+              letterSpacing: '-0.02em'
+            }}>
+              Custom Designs That Speak Your Style
             </h1>
-            <p className="lead mb-4">
-              Professional custom shirt printing and engraving services. 
-              From water bottles to wood, we bring your designs to life with quality and precision.
+            <p style={{ 
+              fontSize: '1.25rem', 
+              marginBottom: '40px',
+              opacity: 0.95,
+              lineHeight: 1.6,
+              fontWeight: 300
+            }}>
+              Transform your ideas into reality with professional printing and engraving services. 
+              From custom tees to personalized keepsakes, we bring your vision to life.
             </p>
             <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <Button as={Link} href="/products" variant="light" size="lg" className="px-4">
-                View Products
+              <Button 
+                as={Link} 
+                href="/products" 
+                variant="light" 
+                size="lg" 
+                className="px-5 py-3 rounded-pill fw-semibold shadow-lg"
+                style={{ fontSize: '1.1rem' }}
+              >
+                Shop Now
               </Button>
-              <Button as={Link} href="/custom-orders" variant="outline-light" size="lg" className="px-4">
-                Get Custom Quote
+              <Button 
+                as={Link} 
+                href="/custom-orders" 
+                variant="outline-light" 
+                size="lg" 
+                className="px-5 py-3 rounded-pill fw-semibold"
+                style={{ fontSize: '1.1rem', borderWidth: '2px' }}
+              >
+                Start Customizing
               </Button>
             </div>
           </div>
@@ -108,21 +148,33 @@ export default function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-5 bg-white">
+      <section style={{ padding: '80px 0', backgroundColor: '#f8f9fa' }}>
         <Container>
           <div className="text-center mb-5">
-            <h2 className="display-5 fw-bold mb-3">
+            <h2 style={{ 
+              fontSize: 'clamp(2rem, 4vw, 3rem)', 
+              fontWeight: 700, 
+              marginBottom: '16px',
+              color: '#1a1a1a'
+            }}>
               Featured Products
             </h2>
-            <p className="lead text-muted">
+            <p style={{ 
+              fontSize: '1.1rem', 
+              color: '#6c757d',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}>
               Ready-to-ship items available now. Add to cart and checkout instantly!
             </p>
           </div>
           
-          <ProductCarousel products={featuredProducts} onAddToCart={handleAddToCart} />
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <ProductCarousel products={featuredProducts} onAddToCart={handleAddToCart} />
+          </div>
           
-          <div className="text-center mt-4">
-            <Button as={Link} href="/products" variant="primary" size="lg">
+          <div className="text-center mt-5">
+            <Button as={Link} href="/products" variant="primary" size="lg" className="px-5 rounded-pill fw-semibold">
               View All Products
             </Button>
           </div>
@@ -130,39 +182,73 @@ export default function Home() {
       </section>
 
       {/* Product Categories Section */}
-      <section className="py-5 bg-light">
+      <section style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
         <Container>
           <div className="text-center mb-5">
-            <h2 className="display-5 fw-bold mb-3">
+            <h2 style={{ 
+              fontSize: 'clamp(2rem, 4vw, 3rem)', 
+              fontWeight: 700, 
+              marginBottom: '16px',
+              color: '#1a1a1a'
+            }}>
               Start Your Custom Project
             </h2>
-            <p className="lead text-muted">
-              Select a product category to begin designing your personalized item.
+            <p style={{ 
+              fontSize: '1.1rem', 
+              color: '#6c757d',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}>
+              Choose a product category and bring your design to life
             </p>
           </div>
-          <Row className="g-4">
+          <Row className="g-4 justify-content-center">
             {categories.map((category) => (
-              <Col key={category.name} xs={6} md={4}>
-                <Card as={Link} href={category.href} className="h-100 text-decoration-none text-dark shadow-sm" style={{ transition: 'transform 0.2s, box-shadow 0.2s' }} 
+              <Col key={category.name} xs={6} sm={6} md={4} lg={4} style={{ maxWidth: '300px' }}>
+                <Card 
+                  as={Link} 
+                  href={category.href} 
+                  className="h-100 text-decoration-none text-dark border-0 shadow-sm"
+                  style={{ 
+                    transition: 'all 0.3s ease',
+                    borderRadius: '16px',
+                    overflow: 'hidden'
+                  }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)';
-                    e.currentTarget.style.boxShadow = '0 0.5rem 1rem rgba(0,0,0,0.15)';
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 0.125rem 0.25rem rgba(0,0,0,0.075)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
                   }}
                 >
-                  <div style={{ aspectRatio: '1/1', backgroundColor: '#f8f9fa', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ 
+                    aspectRatio: '1/1', 
+                    backgroundColor: '#f8f9fa', 
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}>
                     <img 
                       src={category.image}
                       alt={category.alt}
                       className="w-100 h-100"
-                      style={{ objectFit: 'cover' }}
+                      style={{ 
+                        objectFit: 'cover',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'scale(1.05)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'scale(1)';
+                      }}
                     />
                   </div>
-                  <Card.Body className="text-center">
-                    <Card.Title className="h5">{category.name}</Card.Title>
+                  <Card.Body className="text-center p-4">
+                    <Card.Title className="h5 mb-0 fw-semibold" style={{ color: '#1a1a1a' }}>
+                      {category.name}
+                    </Card.Title>
                   </Card.Body>
                 </Card>
               </Col>
@@ -172,48 +258,80 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-5">
+      <section style={{ padding: '80px 0', backgroundColor: '#f8f9fa' }}>
         <Container>
           <div className="text-center mb-5">
-            <h2 className="display-5 fw-bold mb-4">
+            <h2 style={{ 
+              fontSize: 'clamp(2rem, 4vw, 3rem)', 
+              fontWeight: 700, 
+              marginBottom: '16px',
+              color: '#1a1a1a'
+            }}>
               Why Choose DBA Alvarado?
             </h2>
           </div>
           
-          <Row className="g-4">
-            <Col md={4}>
-              <div className="text-center">
-                <div className="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '64px', height: '64px' }}>
-                  <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-primary">
+          <Row className="g-4 justify-content-center">
+            <Col md={4} className="mb-4">
+              <div className="text-center h-100 p-4">
+                <div 
+                  className="rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                  style={{ 
+                    width: '80px', 
+                    height: '80px',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  }}
+                >
+                  <svg width="40" height="40" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="h4 fw-bold mb-2">Quality Guaranteed</h3>
-                <p className="text-muted">We use only the finest materials and state-of-the-art equipment</p>
+                <h3 className="h4 fw-bold mb-3" style={{ color: '#1a1a1a' }}>Quality Guaranteed</h3>
+                <p style={{ color: '#6c757d', fontSize: '1rem', lineHeight: 1.6 }}>
+                  Premium materials and state-of-the-art equipment for lasting results
+                </p>
               </div>
             </Col>
             
-            <Col md={4}>
-              <div className="text-center">
-                <div className="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '64px', height: '64px' }}>
-                  <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-success">
+            <Col md={4} className="mb-4">
+              <div className="text-center h-100 p-4">
+                <div 
+                  className="rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                  style={{ 
+                    width: '80px', 
+                    height: '80px',
+                    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+                  }}
+                >
+                  <svg width="40" height="40" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="h4 fw-bold mb-2">Fast Turnaround</h3>
-                <p className="text-muted">Quick processing and delivery to meet your deadlines</p>
+                <h3 className="h4 fw-bold mb-3" style={{ color: '#1a1a1a' }}>Fast Turnaround</h3>
+                <p style={{ color: '#6c757d', fontSize: '1rem', lineHeight: 1.6 }}>
+                  Quick processing and delivery to meet your deadlines without compromise
+                </p>
               </div>
             </Col>
             
-            <Col md={4}>
-              <div className="text-center">
-                <div className="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '64px', height: '64px' }}>
-                  <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-primary">
+            <Col md={4} className="mb-4">
+              <div className="text-center h-100 p-4">
+                <div 
+                  className="rounded-circle d-inline-flex align-items-center justify-content-center mb-4" 
+                  style={{ 
+                    width: '80px', 
+                    height: '80px',
+                    background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+                  }}
+                >
+                  <svg width="40" height="40" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 </div>
-                <h3 className="h4 fw-bold mb-2">Custom Designs</h3>
-                <p className="text-muted">Personalized designs tailored to your specific needs</p>
+                <h3 className="h4 fw-bold mb-3" style={{ color: '#1a1a1a' }}>Custom Designs</h3>
+                <p style={{ color: '#6c757d', fontSize: '1rem', lineHeight: 1.6 }}>
+                  Personalized designs tailored exactly to your vision and needs
+                </p>
               </div>
             </Col>
           </Row>
@@ -221,20 +339,46 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-5 text-white" style={{ background: '#9333ea' }}>
+      <section style={{ 
+        padding: '80px 0',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      }}>
         <Container>
-          <div className="text-center">
-            <h2 className="display-5 fw-bold mb-3">
+          <div className="text-center text-white" style={{ maxWidth: '700px', margin: '0 auto' }}>
+            <h2 style={{ 
+              fontSize: 'clamp(2rem, 4vw, 3rem)', 
+              fontWeight: 700, 
+              marginBottom: '24px'
+            }}>
               Ready to Get Started?
             </h2>
-            <p className="lead mb-4">
-              Contact us today for a custom quote or browse our products to see what we can create for you.
+            <p style={{ 
+              fontSize: '1.2rem', 
+              marginBottom: '40px',
+              opacity: 0.95,
+              lineHeight: 1.6
+            }}>
+              Let's create something amazing together. Browse our products or start your custom order today.
             </p>
             <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <Button as={Link} href="/products" variant="light" size="lg" className="px-4">
-                View Products
+              <Button 
+                as={Link} 
+                href="/products" 
+                variant="light" 
+                size="lg" 
+                className="px-5 py-3 rounded-pill fw-semibold shadow-lg"
+                style={{ fontSize: '1.1rem' }}
+              >
+                Browse Products
               </Button>
-              <Button as={Link} href="/contact" variant="outline-light" size="lg" className="px-4">
+              <Button 
+                as={Link} 
+                href="/contact" 
+                variant="outline-light" 
+                size="lg" 
+                className="px-5 py-3 rounded-pill fw-semibold"
+                style={{ fontSize: '1.1rem', borderWidth: '2px' }}
+              >
                 Contact Us
               </Button>
             </div>
@@ -242,49 +386,65 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-dark text-white py-5">
+      {/* Modern Footer */}
+      <footer style={{ backgroundColor: '#1a1a1a', color: '#ffffff', padding: '60px 0 30px' }}>
         <Container>
-          <Row className="g-4">
-            <Col md={3}>
-              <h3 className="h4 fw-bold mb-3">DBA Alvarado</h3>
-              <p className="text-muted">
+          <Row className="g-4 mb-4">
+            <Col md={4}>
+              <h3 className="h4 fw-bold mb-3" style={{ color: '#ffffff' }}>DBA Alvarado</h3>
+              <p style={{ color: '#b0b0b0', lineHeight: 1.6, marginBottom: 0 }}>
                 Professional custom printing and engraving services for all your personalization needs.
               </p>
             </Col>
             
-            <Col md={3}>
-              <h4 className="h6 fw-bold mb-3">Services</h4>
-              <ul className="list-unstyled text-muted">
-                <li>Shirt Printing</li>
-                <li>Engravings</li>
-                <li>Custom Orders</li>
-                <li>Bulk Orders</li>
+            <Col md={2}>
+              <h4 className="h6 fw-semibold mb-3" style={{ color: '#ffffff' }}>Services</h4>
+              <ul className="list-unstyled" style={{ color: '#b0b0b0' }}>
+                <li className="mb-2">Shirt Printing</li>
+                <li className="mb-2">Engravings</li>
+                <li className="mb-2">Custom Orders</li>
+                <li className="mb-2">Bulk Orders</li>
               </ul>
             </Col>
             
             <Col md={3}>
-              <h4 className="h6 fw-bold mb-3">Quick Links</h4>
-              <ul className="list-unstyled text-muted">
-                <li><Link href="/about" className="text-muted text-decoration-none">About Us</Link></li>
-                <li><Link href="/contact" className="text-muted text-decoration-none">Contact</Link></li>
-                <li><Link href="/products" className="text-muted text-decoration-none">Products</Link></li>
-                <li><Link href="/custom-orders" className="text-muted text-decoration-none">Custom Orders</Link></li>
+              <h4 className="h6 fw-semibold mb-3" style={{ color: '#ffffff' }}>Quick Links</h4>
+              <ul className="list-unstyled" style={{ color: '#b0b0b0' }}>
+                <li className="mb-2">
+                  <Link href="/about" style={{ color: '#b0b0b0', textDecoration: 'none' }} className="hover-primary">
+                    About Us
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link href="/contact" style={{ color: '#b0b0b0', textDecoration: 'none' }}>
+                    Contact
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link href="/products" style={{ color: '#b0b0b0', textDecoration: 'none' }}>
+                    Products
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link href="/custom-orders" style={{ color: '#b0b0b0', textDecoration: 'none' }}>
+                    Custom Orders
+                  </Link>
+                </li>
               </ul>
             </Col>
             
             <Col md={3}>
-              <h4 className="h6 fw-bold mb-3">Contact Info</h4>
-              <ul className="list-unstyled text-muted">
-                <li>Phone: (555) 123-4567</li>
-                <li>Email: info@dbaalvarado.com</li>
-                <li>Address: Your Business Address</li>
+              <h4 className="h6 fw-semibold mb-3" style={{ color: '#ffffff' }}>Contact Info</h4>
+              <ul className="list-unstyled" style={{ color: '#b0b0b0' }}>
+                <li className="mb-2">Phone: (555) 123-4567</li>
+                <li className="mb-2">Email: info@dbaalvarado.com</li>
+                <li className="mb-2">Address: Your Business Address</li>
               </ul>
             </Col>
           </Row>
           
-          <hr className="my-4 bg-secondary" />
-          <div className="text-center text-muted">
+          <hr style={{ borderColor: '#333', margin: '30px 0' }} />
+          <div className="text-center" style={{ color: '#808080' }}>
             <p className="mb-0">&copy; 2024 DBA Alvarado. All rights reserved.</p>
           </div>
         </Container>

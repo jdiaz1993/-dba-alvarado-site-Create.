@@ -1,20 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
-// Database disabled for Vercel deployment (serverless doesn't support SQLite)
-// import { initDatabase, createOrGetUser, getCartByUserId, saveCart, clearCart, CartItem } from '../../../lib/database';
-
-// Helper function to get session ID from request (not used in simplified version)
-// function getSessionId(request: NextRequest): string {
-//   const sessionCookie = request.cookies.get('session_id');
-//   if (sessionCookie) {
-//     return sessionCookie.value;
-//   }
-//   const authHeader = request.headers.get('authorization');
-//   if (authHeader?.startsWith('Bearer ')) {
-//     return authHeader.substring(7);
-//   }
-//   const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-//   return newSessionId;
-// }
+import { NextResponse } from 'next/server';
 
 // GET /api/cart - Retrieve user's cart (simplified for Vercel)
 export async function GET() {
@@ -37,7 +21,7 @@ export async function GET() {
 }
 
 // POST /api/cart - Save user's cart (simplified for Vercel)
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const body = await request.json();
     const { items } = body;

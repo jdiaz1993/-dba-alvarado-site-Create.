@@ -1,23 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-export interface OrderLog {
-  orderNumber: string;
-  timestamp: string;
-  customer: {
-    name: string;
-    email: string;
-    phone?: string;
-  };
-  items: Array<{
-    name: string;
-    quantity: number;
-    price: number;
-  }>;
-  total: number;
-  status: 'pending' | 'processing' | 'completed';
-}
-
 const ORDERS_FILE = path.join(process.cwd(), 'data', 'orders.json');
 
 // Ensure data directory exists
@@ -29,7 +12,7 @@ function ensureDataDir() {
 }
 
 // Read all orders
-export function getAllOrders(): OrderLog[] {
+export function getAllOrders() {
   try {
     ensureDataDir();
     if (!fs.existsSync(ORDERS_FILE)) {
@@ -44,7 +27,7 @@ export function getAllOrders(): OrderLog[] {
 }
 
 // Save an order
-export function saveOrder(order: OrderLog): void {
+export function saveOrder(order) {
   try {
     ensureDataDir();
     const orders = getAllOrders();
@@ -58,13 +41,13 @@ export function saveOrder(order: OrderLog): void {
 }
 
 // Get orders by status
-export function getOrdersByStatus(status: string): OrderLog[] {
+export function getOrdersByStatus(status) {
   const orders = getAllOrders();
   return orders.filter(order => order.status === status);
 }
 
 // Update order status
-export function updateOrderStatus(orderNumber: string, status: 'pending' | 'processing' | 'completed'): void {
+export function updateOrderStatus(orderNumber, status) {
   try {
     const orders = getAllOrders();
     const updated = orders.map(order => 

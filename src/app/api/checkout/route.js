@@ -4,21 +4,14 @@ export async function GET() {
 	return NextResponse.json({ error: "Not Implemented. Use POST to create a Stripe Checkout session." }, { status: 501 });
 }
 
-type CheckoutItem = {
-	id: string;
-	name: string;
-	price: number; // cents
-	quantity: number;
-};
-
-export async function POST(request: Request) {
+export async function POST(request) {
 	const secretKey = process.env.STRIPE_SECRET_KEY;
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 	if (!secretKey) {
 		return NextResponse.json({ error: "Stripe not configured. Set STRIPE_SECRET_KEY." }, { status: 501 });
 	}
 
-	let items: CheckoutItem[] = [];
+	let items = [];
 	try {
 		const body = await request.json();
 		items = Array.isArray(body?.items) ? body.items : [];
@@ -51,7 +44,7 @@ export async function POST(request: Request) {
 		});
 
 		return NextResponse.json({ url: session.url }, { status: 200 });
-	} catch (err: unknown) {
+	} catch (err) {
 		const message = err instanceof Error ? err.message : "Unknown error creating session";
 		return NextResponse.json({ error: message }, { status: 500 });
 	}

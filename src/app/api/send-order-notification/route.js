@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { sendOrderNotification, sendCustomerConfirmation } from '../../../lib/email';
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const body = await request.json();
     const { orderDetails, customerInfo, items } = body;
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       customerName: customerInfo.name,
       customerEmail: customerInfo.email,
       customerPhone: customerInfo.phone,
-      items: items.map((item: { name: string; quantity: number; price: number }) => ({
+      items: items.map((item) => ({
         name: item.name,
         quantity: item.quantity,
         price: item.price,

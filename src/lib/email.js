@@ -2,21 +2,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-interface OrderData {
-  orderNumber: string;
-  customerName: string;
-  customerEmail: string;
-  customerPhone?: string;
-  items: Array<{
-    name: string;
-    quantity: number;
-    price: number;
-  }>;
-  total: number;
-  timestamp: Date;
-}
-
-export async function sendOrderNotification(orderData: OrderData) {
+export async function sendOrderNotification(orderData) {
   try {
     if (!process.env.RESEND_API_KEY) {
       console.warn('⚠️ RESEND_API_KEY not configured. Email will not be sent.');
@@ -104,7 +90,7 @@ export async function sendOrderNotification(orderData: OrderData) {
                       </tr>
                     </thead>
                     <tbody>
-                      ${orderData.items.map((item: { name: string; quantity: number; price: number }) => `
+                      ${orderData.items.map((item) => `
                         <tr>
                           <td><strong>${item.name}</strong></td>
                           <td style="text-align: center;">${item.quantity}</td>
@@ -169,7 +155,7 @@ export async function sendOrderNotification(orderData: OrderData) {
   }
 }
 
-export async function sendCustomerConfirmation(orderData: OrderData) {
+export async function sendCustomerConfirmation(orderData) {
   try {
     if (!process.env.RESEND_API_KEY) {
       return { success: false, error: 'Email service not configured' };
@@ -224,7 +210,7 @@ export async function sendCustomerConfirmation(orderData: OrderData) {
                       </tr>
                     </thead>
                     <tbody>
-                      ${orderData.items.map((item: { name: string; quantity: number; price: number }) => `
+                      ${orderData.items.map((item) => `
                         <tr>
                           <td>${item.name}</td>
                           <td>${item.quantity}</td>

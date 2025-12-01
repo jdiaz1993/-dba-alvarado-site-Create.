@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { saveOrder, OrderLog } from '../../../lib/ordersLogger';
+import { NextResponse } from 'next/server';
+import { saveOrder } from '../../../lib/ordersLogger';
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const body = await request.json();
     const { orderNumber, customer, items, total } = body;
 
     // Create order log
-    const order: OrderLog = {
+    const order = {
       orderNumber: orderNumber || `ORD-${Date.now()}`,
       timestamp: new Date().toISOString(),
       customer: {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         email: customer.email,
         phone: customer.phone,
       },
-      items: items.map((item: { name: string; quantity: number; price: number }) => ({
+      items: items.map((item) => ({
         name: item.name,
         quantity: item.quantity,
         price: item.price,

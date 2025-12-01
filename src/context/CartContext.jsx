@@ -1,42 +1,21 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, ReactNode, useCallback, useEffect, useRef } from "react";
+import { createContext, useContext, useMemo, useState, useCallback, useEffect, useRef } from "react";
 
-export type CartItem = {
-	id: string;
-	name: string;
-	price: number; // in cents
-	imageUrl?: string;
-	quantity: number;
-};
-
-type CartContextValue = {
-	items: CartItem[];
-	addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
-	removeItem: (id: string) => void;
-	updateQuantity: (id: string, quantity: number) => void;
-	clear: () => void;
-	totalCents: number;
-	totalQuantity: number;
-	isLoading: boolean;
-	isSaving: boolean;
-	syncError: string | null;
-};
-
-const CartContext = createContext<CartContextValue | null>(null);
-
-export function useCart(): CartContextValue {
+export function useCart() {
 	const ctx = useContext(CartContext);
 	if (!ctx) throw new Error("useCart must be used within CartProvider");
 	return ctx;
 }
 
-export function CartProvider({ children }: { children: ReactNode }) {
-	const [items, setItems] = useState<CartItem[]>([]);
+const CartContext = createContext(null);
+
+export function CartProvider({ children }) {
+	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
-	const [syncError, setSyncError] = useState<string | null>(null);
-	const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const [syncError, setSyncError] = useState(null);
+	const saveTimeoutRef = useRef(null);
 
 	// Load cart from backend on mount
 	useEffect(() => {
@@ -67,7 +46,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 		}
 	}, []);
 
-	const saveCartToBackend = useCallback(async (cartItems: CartItem[]) => {
+	const saveCartToBackend = useCallback(async (cartItems) => {
 		try {
 			setSyncError(null);
 			setIsSaving(true);
@@ -118,7 +97,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 		};
 	}, [items, isLoading, saveCartToBackend]);
 
-	const addItem = useCallback((item: Omit<CartItem, "quantity">, quantity: number = 1) => {
+	const addItem = useCallback((item, quantity = 1) => {
 		setItems(prev => {
 			const existing = prev.find(i => i.id === item.id);
 			const newItems = existing
@@ -132,7 +111,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 		});
 	}, [saveCartToBackend]);
 
-	const removeItem = useCallback((id: string) => {
+	const removeItem = useCallback((id) => {
 		setItems(prev => {
 			const newItems = prev.filter(i => i.id !== id);
 			// Immediately save to backend
@@ -141,7 +120,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 		});
 	}, [saveCartToBackend]);
 
-	const updateQuantity = useCallback((id: string, quantity: number) => {
+	const updateQuantity = useCallback((id, quantity) => {
 		setItems(prev => {
 			const newItems = prev.map(i => i.id === id ? { ...i, quantity: Math.max(1, quantity) } : i);
 			// Immediately save to backend
@@ -174,7 +153,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 	const totalCents = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
 	const totalQuantity = useMemo(() => items.reduce((sum, i) => sum + i.quantity, 0), [items]);
 
-	const value: CartContextValue = {
+	const value = {
 		items,
 		addItem,
 		removeItem,

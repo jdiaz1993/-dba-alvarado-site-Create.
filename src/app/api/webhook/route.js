@@ -5,7 +5,7 @@ import { addOrder } from "../../../lib/ordersStore";
 // Optional: set your endpoint secret here or via env var
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-export async function POST(request: Request) {
+export async function POST(request) {
 	const sig = (await headers()).get("stripe-signature");
 	if (!webhookSecret) {
 		return NextResponse.json({ error: "Webhook not configured" }, { status: 501 });
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 		const event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
 
 		if (event.type === "checkout.session.completed") {
-			const session = event.data.object as import("stripe").Stripe.Checkout.Session;
+			const session = event.data.object;
 			addOrder({
 				id: session.id,
 				stripeSessionId: session.id,
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 		}
 
 		return NextResponse.json({ received: true });
-	} catch (err: unknown) {
+	} catch (err) {
 		const message = err instanceof Error ? err.message : "Webhook error";
 		return NextResponse.json({ error: message }, { status: 400 });
 	}

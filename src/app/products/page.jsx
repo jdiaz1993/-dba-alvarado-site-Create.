@@ -149,16 +149,18 @@ export default function Products() {
                       style={{ objectFit: 'cover' }}
                     />
                   </div>
-                  <Card.Body>
-                    <Card.Title className="h5">{product.name}</Card.Title>
-                    <Card.Text className="text-muted mb-3">{product.description}</Card.Text>
+                  <div className="p-3">
+                    <h5 className="fw-semibold mb-2">{product.name}</h5>
+                    <p className="text-muted mb-3">{product.description}</p>
                     <div className="d-flex justify-content-between align-items-center">
                       <span className="h5 text-primary mb-0">{product.price}</span>
-                      <Button as={Link} href={product.href} variant="primary">
-                        Design Now
-                      </Button>
+                      <Link href={product.href}>
+                        <Button variant="primary">
+                          Design Now
+                        </Button>
+                      </Link>
                     </div>
-                  </Card.Body>
+                  </div>
                 </Card>
               </Col>
             ))}

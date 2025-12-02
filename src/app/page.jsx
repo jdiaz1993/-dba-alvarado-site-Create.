@@ -122,26 +122,26 @@ export default function Home() {
               From custom tees to personalized keepsakes, we bring your vision to life.
             </p>
             <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <Button 
-                as={Link} 
-                href="/products" 
-                variant="light" 
-                size="lg" 
-                className="px-5 py-3 rounded-pill fw-semibold shadow-lg"
-                style={{ fontSize: '1.1rem' }}
-              >
-                Shop Now
-              </Button>
-              <Button 
-                as={Link} 
-                href="/custom-orders" 
-                variant="outline-light" 
-                size="lg" 
-                className="px-5 py-3 rounded-pill fw-semibold"
-                style={{ fontSize: '1.1rem', borderWidth: '2px' }}
-              >
-                Start Customizing
-              </Button>
+              <Link href="/products">
+                <Button 
+                  variant="light" 
+                  size="lg" 
+                  className="px-5 py-3 rounded-pill fw-semibold shadow-lg"
+                  style={{ fontSize: '1.1rem' }}
+                >
+                  Shop Now
+                </Button>
+              </Link>
+              <Link href="/custom-orders">
+                <Button 
+                  variant="outline-light" 
+                  size="lg" 
+                  className="px-5 py-3 rounded-pill fw-semibold"
+                  style={{ fontSize: '1.1rem', borderWidth: '2px' }}
+                >
+                  Start Customizing
+                </Button>
+              </Link>
             </div>
           </div>
         </Container>
@@ -174,9 +174,11 @@ export default function Home() {
           </div>
           
           <div className="text-center mt-5">
-            <Button as={Link} href="/products" variant="primary" size="lg" className="px-5 rounded-pill fw-semibold">
-              View All Products
-            </Button>
+            <Link href="/products">
+              <Button variant="primary" size="lg" className="px-5 rounded-pill fw-semibold">
+                View All Products
+              </Button>
+            </Link>
           </div>
         </Container>
       </section>
@@ -205,52 +207,52 @@ export default function Home() {
           <Row className="g-4 justify-content-center">
             {categories.map((category) => (
               <Col key={category.name} xs={6} sm={6} md={4} lg={4} style={{ maxWidth: '300px' }}>
-                <Card 
-                  as={Link} 
-                  href={category.href} 
-                  className="h-100 text-decoration-none text-dark border-0 shadow-sm"
-                  style={{ 
-                    transition: 'all 0.3s ease',
-                    borderRadius: '16px',
-                    overflow: 'hidden'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-                  }}
-                >
-                  <div style={{ 
-                    aspectRatio: '1/1', 
-                    backgroundColor: '#f8f9fa', 
-                    overflow: 'hidden',
-                    position: 'relative'
-                  }}>
-                    <img 
-                      src={category.image}
-                      alt={category.alt}
-                      className="w-100 h-100"
-                      style={{ 
-                        objectFit: 'cover',
-                        transition: 'transform 0.3s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.transform = 'scale(1.05)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.transform = 'scale(1)';
-                      }}
-                    />
-                  </div>
-                  <Card.Body className="text-center p-4">
-                    <Card.Title className="h5 mb-0 fw-semibold" style={{ color: '#1a1a1a' }}>
-                      {category.name}
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
+                <Link href={category.href} className="text-decoration-none text-dark">
+                  <Card 
+                    className="h-100 border-0 shadow-sm"
+                    style={{ 
+                      transition: 'all 0.3s ease',
+                      borderRadius: '16px',
+                      overflow: 'hidden'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-8px)';
+                      e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                    }}
+                  >
+                    <div style={{ 
+                      aspectRatio: '1/1', 
+                      backgroundColor: '#f8f9fa', 
+                      overflow: 'hidden',
+                      position: 'relative'
+                    }}>
+                      <img 
+                        src={category.image}
+                        alt={category.alt}
+                        className="w-100 h-100"
+                        style={{ 
+                          objectFit: 'cover',
+                          transition: 'transform 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.transform = 'scale(1.05)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.transform = 'scale(1)';
+                        }}
+                      />
+                    </div>
+                    <Card.Body className="text-center p-4">
+                      <Card.Title className="h5 mb-0 fw-semibold" style={{ color: '#1a1a1a' }}>
+                        {category.name}
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Link>
               </Col>
             ))}
           </Row>
@@ -361,26 +363,26 @@ export default function Home() {
               Let's create something amazing together. Browse our products or start your custom order today.
             </p>
             <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <Button 
-                as={Link} 
-                href="/products" 
-                variant="light" 
-                size="lg" 
-                className="px-5 py-3 rounded-pill fw-semibold shadow-lg"
-                style={{ fontSize: '1.1rem' }}
-              >
-                Browse Products
-              </Button>
-              <Button 
-                as={Link} 
-                href="/contact" 
-                variant="outline-light" 
-                size="lg" 
-                className="px-5 py-3 rounded-pill fw-semibold"
-                style={{ fontSize: '1.1rem', borderWidth: '2px' }}
-              >
-                Contact Us
-              </Button>
+              <Link href="/products">
+                <Button 
+                  variant="light" 
+                  size="lg" 
+                  className="px-5 py-3 rounded-pill fw-semibold shadow-lg"
+                  style={{ fontSize: '1.1rem' }}
+                >
+                  Browse Products
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button 
+                  variant="outline-light" 
+                  size="lg" 
+                  className="px-5 py-3 rounded-pill fw-semibold"
+                  style={{ fontSize: '1.1rem', borderWidth: '2px' }}
+                >
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </div>
         </Container>

@@ -14,8 +14,12 @@ export default function AboutPage() {
 						From team apparel and event merch to personalized water bottles and wood signs, we deliver standout results with quick turnaround times.
 					</p>
 					<div className="d-flex gap-3">
-						<Button as={Link} href="/products" variant="primary">Browse Products</Button>
-						<Button as={Link} href="/contact" variant="outline-secondary">Contact Us</Button>
+						<Link href="/products">
+							<Button variant="primary">Browse Products</Button>
+						</Link>
+						<Link href="/contact">
+							<Button variant="outline-secondary">Contact Us</Button>
+						</Link>
 					</div>
 				</div>
 			</Container>

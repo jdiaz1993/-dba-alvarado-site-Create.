@@ -15,17 +15,19 @@ export default function ShirtPrintsPage() {
 						<Col key={i} md={4}>
 							<Card className="shadow-sm h-100">
 								<div className="bg-light rounded-top" style={{ height: '160px' }} />
-								<Card.Body>
-									<Card.Title className="h5">Custom Tee #{i}</Card.Title>
-									<Card.Text className="text-muted">Soft cotton tees with vibrant, durable prints.</Card.Text>
-								</Card.Body>
+								<div className="p-3">
+									<h5 className="fw-semibold mb-2">Custom Tee #{i}</h5>
+									<p className="text-muted mb-0">Soft cotton tees with vibrant, durable prints.</p>
+								</div>
 							</Card>
 						</Col>
 					))}
 				</Row>
 
 				<div className="text-center">
-					<Button as={Link} href="/custom-orders" variant="primary" size="lg">Start a Custom Order</Button>
+					<Link href="/custom-orders">
+						<Button variant="primary" size="lg">Start a Custom Order</Button>
+					</Link>
 				</div>
 			</Container>
 		</div>

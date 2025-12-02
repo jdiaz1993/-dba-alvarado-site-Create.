@@ -47,17 +47,19 @@ export default function EngravingsPage() {
 										<span className="text-muted">Metal Tag Example</span>
 									)}
 								</div>
-								<Card.Body>
-									<Card.Title className="h5">{item.name}</Card.Title>
-									<Card.Text className="text-muted">{item.description}</Card.Text>
-								</Card.Body>
+								<div className="p-3">
+									<h5 className="fw-semibold mb-2">{item.name}</h5>
+									<p className="text-muted mb-0">{item.description}</p>
+								</div>
 							</Card>
 						</Col>
 					))}
 				</Row>
 
 				<div className="text-center">
-					<Button as={Link} href="/custom-orders" variant="primary" size="lg">Start a Custom Order</Button>
+					<Link href="/custom-orders">
+						<Button variant="primary" size="lg">Start a Custom Order</Button>
+					</Link>
 				</div>
 			</Container>
 		</div>

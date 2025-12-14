@@ -7,13 +7,9 @@ import ImageUpload from '../../components/ImageUpload';
 import DesignPreview from '../../components/DesignPreview';
 import { useCart } from '../../context/CartContext';
 
-// Product pricing
+// Product pricing - Shirt printing only
 const productPrices = {
   'shirt-printing': { name: 'Custom T-Shirt Printing', basePrice: 2000 }, // $20.00
-  'water-bottle-engraving': { name: 'Engraved Water Bottle', basePrice: 3599 }, // $35.99
-  'wood-engraving': { name: 'Custom Wood Engraving', basePrice: 2599 }, // $25.99
-  'metal-engraving': { name: 'Metal Engraving', basePrice: 2999 }, // $29.99
-  'other': { name: 'Custom Order', basePrice: 0 }, // Price TBD
 };
 
 function CustomOrdersContent() {
@@ -34,10 +30,13 @@ function CustomOrdersContent() {
   const { addItem } = useCart();
 
   useEffect(() => {
-    // Get project type from URL parameter
+    // Get project type from URL parameter, default to shirt-printing
     const type = searchParams.get('type');
     if (type) {
       setSelectedProjectType(type);
+    } else {
+      // Default to shirt printing if no type specified
+      setSelectedProjectType('shirt-printing');
     }
   }, [searchParams]);
 
@@ -54,83 +53,37 @@ function CustomOrdersContent() {
     console.log('Quantity:', quantity);
     console.log('Shipping address:', shippingAddress);
     
-    if (!selectedProjectType) {
-      alert('Please select a project type');
-      return;
-    }
-
-    // Validate shirt color if shirt printing is selected
-    if (selectedProjectType === 'shirt-printing' && !shirtColor) {
+    // Validate shirt color
+    if (!shirtColor) {
       alert('Please select a shirt color');
       return;
     }
 
-    // Validate shirt size if shirt printing is selected
-    if (selectedProjectType === 'shirt-printing' && !shirtSize) {
+    // Validate shirt size
+    if (!shirtSize) {
       alert('Please select a shirt size');
       return;
     }
 
-    // If it's shirt printing, redirect to preview page
-    if (selectedProjectType === 'shirt-printing') {
-      // Validate shipping address for shirts too
-      if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
-        alert('Please fill out all shipping address fields');
-        return;
-      }
-      
-      // Save data to localStorage for preview
-      const designUrls = uploadedFiles.map(file => URL.createObjectURL(file));
-      const previewData = {
-        color: shirtColor,
-        size: shirtSize,
-        quantity: quantity,
-        designs: designUrls,
-        shippingAddress: shippingAddress,
-        productInfo: productPrices[selectedProjectType]
-      };
-      localStorage.setItem('previewDesignData', JSON.stringify(previewData));
-      router.push('/preview-design');
-      return;
-    }
-
-    // Validate shipping address for non-shirt orders
+    // Redirect to preview page for shirt printing
+    // Validate shipping address
     if (!shippingAddress.street || !shippingAddress.city || !shippingAddress.state || !shippingAddress.zipCode) {
       alert('Please fill out all shipping address fields');
       return;
     }
-
-    const productInfo = productPrices[selectedProjectType];
     
-    if (!productInfo) {
-      alert('Invalid project type');
-      return;
-    }
-
-    console.log('Product info:', productInfo);
-    console.log('Adding to cart...');
-
-    // Add to cart with shipping address in the name/description
-    try {
-      const shippingInfo = `${shippingAddress.street}, ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.zipCode}, ${shippingAddress.country}`;
-      
-      addItem({
-        id: `custom-${selectedProjectType}-${Date.now()}`,
-        name: `${productInfo.name} - Ship to: ${shippingInfo}`,
-        price: productInfo.basePrice,
-      }, quantity);
-      
-      console.log('Item added to cart successfully with shipping address');
-      
-      // Show success message and redirect to cart
-      setTimeout(() => {
-        alert(`Custom order added to cart!\n\nShipping to:\n${shippingInfo}\n\nPlease proceed to checkout.`);
-        router.push('/cart');
-      }, 100);
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      alert('Error adding to cart. Please try again.');
-    }
+    // Save data to localStorage for preview
+    const designUrls = uploadedFiles.map(file => URL.createObjectURL(file));
+    const previewData = {
+      color: shirtColor,
+      size: shirtSize,
+      quantity: quantity,
+      designs: designUrls,
+      shippingAddress: shippingAddress,
+      productInfo: productPrices[selectedProjectType]
+    };
+    localStorage.setItem('previewDesignData', JSON.stringify(previewData));
+    router.push('/preview-design');
   };
 
   const formatUSD = (cents) => {
@@ -147,9 +100,9 @@ function CustomOrdersContent() {
     <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }} className="py-5">
       <Container>
         <div className="text-center mb-5">
-          <h1 className="display-4 fw-bold mb-3">Custom Orders</h1>
+          <h1 className="display-4 fw-bold mb-3">Custom Shirt Order</h1>
           <p className="lead text-muted">
-            Tell us about your custom project and we&apos;ll provide you with a personalized quote
+            Create your custom shirt design. Upload your artwork, choose your style, and we&apos;ll bring it to life.
           </p>
         </div>
 
@@ -262,14 +215,13 @@ function CustomOrdersContent() {
                 <Form.Select 
                   value={selectedProjectType}
                   onChange={(e) => setSelectedProjectType(e.target.value)}
+                  disabled
                 >
-                  <option value="">Select a project type</option>
                   <option value="shirt-printing">Shirt Printing</option>
-                  <option value="water-bottle-engraving">Water Bottle Engraving</option>
-                  <option value="wood-engraving">Wood Engraving</option>
-                  <option value="metal-engraving">Metal Engraving</option>
-                  <option value="other">Other</option>
                 </Form.Select>
+                <Form.Text className="text-muted">
+                  Currently specializing in custom shirt printing
+                </Form.Text>
               </Form.Group>
               
               {currentPrice && currentPrice.basePrice > 0 && (
@@ -292,9 +244,8 @@ function CustomOrdersContent() {
                 </Alert>
               )}
 
-              {/* Shirt Color Selection - Only show when shirt printing is selected */}
-              {selectedProjectType === 'shirt-printing' && (
-                <div className="mb-4">
+              {/* Shirt Color Selection */}
+              <div className="mb-4">
                   <Form.Label>Shirt Color *</Form.Label>
                   <Row className="g-2">
                     {shirtColors.map((color) => (
@@ -316,11 +267,9 @@ function CustomOrdersContent() {
                     </p>
                   )}
                 </div>
-              )}
 
-              {/* Shirt Size Selection - Only show when shirt printing is selected */}
-              {selectedProjectType === 'shirt-printing' && (
-                <div className="mb-4">
+              {/* Shirt Size Selection */}
+              <div className="mb-4">
                   <Form.Label>Shirt Size *</Form.Label>
                   
                   {/* Youth Sizes */}
@@ -367,16 +316,13 @@ function CustomOrdersContent() {
                     </p>
                   )}
                 </div>
-              )}
 
               {/* Live Design Preview */}
-              {selectedProjectType === 'shirt-printing' && (
-                <DesignPreview 
+              <DesignPreview 
                   productType={selectedProjectType} 
                   color={shirtColor}
                   uploadedFiles={uploadedFiles}
                 />
-              )}
 
               <Form.Group className="mb-3">
                 <Form.Label>Quantity *</Form.Label>
@@ -492,12 +438,12 @@ function CustomOrdersContent() {
                 variant="primary"
                 size="lg"
                 className="w-100"
-                disabled={!selectedProjectType || (selectedProjectType === 'shirt-printing' && (!shirtColor || !shirtSize))}
+                disabled={!shirtColor || !shirtSize}
                 onClick={(e) => {
                   console.log('Button clicked');
-                  if (!selectedProjectType) {
+                  if (!shirtColor || !shirtSize) {
                     e.preventDefault();
-                    alert('Please select a project type first');
+                    alert('Please select a shirt color and size first');
                   }
                 }}
               >

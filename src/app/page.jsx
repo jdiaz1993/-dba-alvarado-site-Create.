@@ -8,35 +8,28 @@ import ProductCarousel from '@/components/ProductCarousel';
 export default function Home() {
   const { addItem } = useCart();
 
-  // Featured ready-to-sell products - Using your actual gallery images
+  // Featured shirt products
   const featuredProducts = [
     {
-      id: "ready-water-bottle-1",
-      name: "Engraved Water Bottle",
-      price: 3599, // $35.99 in cents
-      image: "/assets/images/gallery/20251019_183918.jpg",
-      description: "Stainless steel bottle with custom laser engraving",
+      id: "shirt-1",
+      name: "Custom T-Shirt",
+      price: 2000, // $20.00 in cents
+      image: "/assets/images/products/plain-tshirt.png",
+      description: "High-quality cotton t-shirt with custom printing",
     },
     {
-      id: "ready-wood-1",
-      name: "Custom Wood Engraving",
-      price: 2599, // $25.99 in cents
-      image: "/assets/images/gallery/wood-engraving-example.jpg",
-      description: "Beautiful wood engraving - custom designs available",
+      id: "shirt-2",
+      name: "Custom Hoodie",
+      price: 4500, // $45.00 in cents
+      image: "/assets/images/products/plain-hoodie.jpg",
+      description: "Warm and comfortable hoodie with your design",
     },
     {
-      id: "ready-item-1",
-      name: "Custom Engraved Item",
-      price: 2999, // $29.99 in cents
-      image: "/assets/images/gallery/20251005_144719.jpg",
-      description: "Personalized engraved product",
-    },
-    {
-      id: "ready-item-2",
-      name: "Custom Design",
-      price: 3499, // $34.99 in cents
-      image: "/assets/images/gallery/20251019_171633.jpg",
-      description: "Custom personalized design",
+      id: "shirt-3",
+      name: "Custom Polo Shirt",
+      price: 3500, // $35.00 in cents
+      image: "/assets/images/products/polo-shirt.png",
+      description: "Professional polo shirt with custom DTF printing",
     },
   ];
 
@@ -52,31 +45,25 @@ export default function Home() {
   const categories = [
     {
       name: "T-Shirts",
-      href: "/custom-orders?type=shirt-printing",
+      href: "/shirt-prints",
       image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop&q=80",
       alt: "Plain T-Shirt"
     },
     {
       name: "Hoodies",
-      href: "/custom-orders?type=shirt-printing",
+      href: "/shirt-prints",
       image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop&q=80",
       alt: "Plain Hoodie"
     },
     {
       name: "Long Sleeve T-Shirts",
-      href: "/custom-orders?type=shirt-printing",
+      href: "/shirt-prints",
       image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&h=800&fit=crop&q=80",
       alt: "Plain Long Sleeve T-Shirt"
     },
     {
-      name: "Tote Bag",
-      href: "/custom-orders",
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&q=80",
-      alt: "Canvas Tote Bag"
-    },
-    {
       name: "Polo Shirts",
-      href: "/custom-orders?type=shirt-printing",
+      href: "/shirt-prints",
       image: "https://images.unsplash.com/photo-1594938291221-94f18b0f3c12?w=800&h=800&fit=crop&q=80",
       alt: "Plain Polo Shirt"
     },
@@ -84,130 +71,104 @@ export default function Home() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
-      {/* Modern Hero Section with Animated Background */}
+      {/* Clean Hero Section - CustomInk Style */}
       <section style={{ 
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
-        padding: '120px 0 100px',
-        position: 'relative',
-        overflow: 'hidden'
+        background: '#ffffff',
+        padding: '100px 0 80px',
+        borderBottom: '1px solid #e2e8f0'
       }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: `
-            radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 20%, rgba(255,255,255,0.05) 0%, transparent 50%)
-          `,
-          pointerEvents: 'none'
-        }}></div>
-        <Container style={{ position: 'relative', zIndex: 1 }}>
-          <Row className="align-items-center">
-            <Col lg={7} className="mb-5 mb-lg-0">
-              <div style={{ color: '#ffffff' }}>
-                <div style={{
-                  display: 'inline-block',
-                  padding: '8px 20px',
-                  background: 'rgba(255,255,255,0.2)',
-                  borderRadius: '50px',
-                  marginBottom: '2rem',
-                  fontSize: '0.9rem',
-                  fontWeight: 500,
-                  backdropFilter: 'blur(10px)'
-                }}>
-                  ✨ Premium Custom Printing & Engraving
-                </div>
+        <Container>
+          <Row className="justify-content-center">
+            <Col lg={10} xl={8}>
+              <div style={{ textAlign: 'center' }}>
                 <h1 style={{ 
-                  fontSize: 'clamp(3rem, 7vw, 5.5rem)', 
-                  fontWeight: 900, 
-                  marginBottom: '1.5rem',
-                  lineHeight: 1.1,
-                  letterSpacing: '-0.04em',
-                  color: '#ffffff',
-                  textShadow: '0 2px 20px rgba(0,0,0,0.2)'
+                  fontSize: 'clamp(2.5rem, 6vw, 4rem)', 
+                  fontWeight: 700, 
+                  marginBottom: '1rem',
+                  lineHeight: 1.2,
+                  letterSpacing: '-0.02em',
+                  color: '#0f172a'
                 }}>
-                  Create Something<br />Extraordinary
+                  Custom T-Shirts & Apparel<br />for Your Group
                 </h1>
                 <p style={{ 
-                  fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
-                  marginBottom: '3rem',
-                  color: 'rgba(255,255,255,0.95)',
-                  lineHeight: 1.7,
-                  fontWeight: 300,
-                  maxWidth: '600px'
+                  fontSize: '1.25rem', 
+                  marginBottom: '2.5rem',
+                  color: '#64748b',
+                  lineHeight: 1.6,
+                  fontWeight: 400,
+                  maxWidth: '600px',
+                  margin: '0 auto 2.5rem'
                 }}>
-                  Transform your ideas into reality with professional printing and precision engraving. From custom apparel to personalized keepsakes, we bring your vision to life.
+                  High-quality DTF printing on t-shirts, hoodies, and more. Create custom designs that stand out.
                 </p>
-                <div className="d-flex flex-column flex-sm-row gap-3">
-                  <Link href="/custom-orders">
-                    <Button 
-                      variant="light" 
-                      size="lg" 
-                      className="px-5 py-3 fw-bold"
-                      style={{ 
-                        fontSize: '1.1rem',
-                        borderRadius: '12px',
-                        boxShadow: '0 8px 25px rgba(0,0,0,0.2)',
-                        border: 'none',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.transform = 'translateY(-2px)';
-                        e.target.style.boxShadow = '0 12px 35px rgba(0,0,0,0.3)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.transform = 'translateY(0)';
-                        e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
-                      }}
-                    >
-                      Start Creating →
-                    </Button>
-                  </Link>
-                  <Link href="/products">
-                    <Button 
-                      variant="outline-light" 
-                      size="lg" 
-                      className="px-5 py-3 fw-semibold"
-                      style={{ 
-                        fontSize: '1.1rem',
-                        borderRadius: '12px',
-                        borderWidth: '2px',
-                        background: 'rgba(255,255,255,0.1)',
-                        backdropFilter: 'blur(10px)'
-                      }}
-                    >
-                      Browse Products
-                    </Button>
-                  </Link>
+                <Link href="/shirt-prints">
+                  <Button 
+                    variant="primary" 
+                    size="lg" 
+                    className="px-5 py-3 fw-bold"
+                    style={{ 
+                      fontSize: '1.125rem',
+                      borderRadius: '8px',
+                      background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                      border: 'none',
+                      boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+                      fontWeight: 600,
+                      padding: '0.875rem 2rem'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 6px 16px rgba(99, 102, 241, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      {/* Trust Signals - CustomInk Style */}
+      <section style={{ 
+        background: '#f8fafc',
+        padding: '40px 0',
+        borderBottom: '1px solid #e2e8f0'
+      }}>
+        <Container>
+          <Row className="g-4 text-center">
+            <Col md={4}>
+              <div>
+                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#0f172a' }}>
+                  Free Shipping
+                </div>
+                <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                  On all orders
                 </div>
               </div>
             </Col>
-            <Col lg={5}>
-              <div style={{
-                position: 'relative',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                boxShadow: '0 25px 80px rgba(0,0,0,0.3)',
-                transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)'
-              }}>
-                <div style={{
-                  aspectRatio: '4/5',
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%)',
-                  backdropFilter: 'blur(20px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '1px solid rgba(255,255,255,0.3)'
-                }}>
-                  <div className="text-center text-white p-5">
-                    <div style={{ fontSize: '5rem', marginBottom: '1rem', opacity: 0.9 }}>🎨</div>
-                    <p style={{ fontSize: '1.3rem', fontWeight: 600, opacity: 0.95 }}>
-                      Your Design Studio
-                    </p>
-                  </div>
+            <Col md={4}>
+              <div>
+                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#0f172a' }}>
+                  Fast Turnaround
+                </div>
+                <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                  Quick processing times
+                </div>
+              </div>
+            </Col>
+            <Col md={4}>
+              <div>
+                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#0f172a' }}>
+                  100% Satisfaction
+                </div>
+                <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                  Quality guaranteed
                 </div>
               </div>
             </Col>
@@ -215,26 +176,26 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Product Categories - Modern Grid */}
-      <section style={{ padding: '100px 0', backgroundColor: '#ffffff' }}>
+      {/* Product Categories - CustomInk Style Grid */}
+      <section style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
         <Container>
-          <div className="text-center mb-5">
+          <div className="text-center mb-5" style={{ marginBottom: '3rem' }}>
             <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-              fontWeight: 800, 
-              marginBottom: '1rem',
-              color: '#1a1a1a',
+              fontSize: 'clamp(2rem, 5vw, 2.5rem)', 
+              fontWeight: 700, 
+              marginBottom: '0.75rem',
+              color: '#0f172a',
               letterSpacing: '-0.02em'
             }}>
-              Explore Our Products
+              Custom T-Shirts & Apparel
             </h2>
             <p style={{ 
-              fontSize: '1.2rem', 
-              color: '#6c757d',
+              fontSize: '1rem', 
+              color: '#64748b',
               maxWidth: '600px',
               margin: '0 auto'
             }}>
-              Choose from our range of customizable products and bring your unique designs to life
+              Choose from our range of high-quality apparel for your custom design
             </p>
           </div>
           
@@ -245,24 +206,30 @@ export default function Home() {
                   <Card 
                     className="h-100 border-0"
                     style={{ 
-                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                      borderRadius: '20px',
+                      transition: 'all 0.3s ease',
+                      borderRadius: '12px',
                       overflow: 'hidden',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                      backgroundColor: '#ffffff'
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                      backgroundColor: '#eff6ff',
+                      border: '1px solid #bfdbfe',
+                      cursor: 'pointer'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
-                      e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 8px 16px rgba(59, 130, 246, 0.2)';
+                      e.currentTarget.style.borderColor = '#93c5fd';
+                      e.currentTarget.style.backgroundColor = '#dbeafe';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                      e.currentTarget.style.borderColor = '#bfdbfe';
+                      e.currentTarget.style.backgroundColor = '#eff6ff';
                     }}
                   >
                     <div style={{ 
                       aspectRatio: '1/1', 
-                      backgroundColor: '#f8f9fa', 
+                      backgroundColor: '#f1f5f9', 
                       overflow: 'hidden',
                       position: 'relative'
                     }}>
@@ -272,29 +239,21 @@ export default function Home() {
                         className="w-100 h-100"
                         style={{ 
                           objectFit: 'cover',
-                          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                          transition: 'transform 0.4s ease'
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.transform = 'scale(1.15)';
+                          e.target.style.transform = 'scale(1.1)';
                         }}
                         onMouseLeave={(e) => {
                           e.target.style.transform = 'scale(1)';
                         }}
                       />
-                      <div style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        background: 'linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent)',
-                        padding: '24px',
-                        color: 'white'
-                      }}>
-                        <h5 className="mb-0 fw-bold" style={{ fontSize: '1.3rem' }}>
-                          {category.name}
-                        </h5>
-                      </div>
                     </div>
+                    <Card.Body className="p-3" style={{ textAlign: 'center' }}>
+                      <h5 className="mb-0 fw-semibold" style={{ fontSize: '1rem', color: '#0f172a' }}>
+                        {category.name}
+                      </h5>
+                    </Card.Body>
                   </Card>
                 </Link>
               </Col>
@@ -303,221 +262,71 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Featured Products Section */}
-      <section style={{ padding: '100px 0', background: 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%)' }}>
+      {/* Value Propositions - CustomInk Style */}
+      <section style={{ padding: '80px 0', background: '#f8fafc' }}>
         <Container>
-          <div className="text-center mb-5">
+          <div className="text-center mb-5" style={{ marginBottom: '3rem' }}>
             <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-              fontWeight: 800, 
-              marginBottom: '1rem',
-              color: '#1a1a1a',
+              fontSize: 'clamp(2rem, 5vw, 2.5rem)', 
+              fontWeight: 700, 
+              marginBottom: '0.75rem',
+              color: '#0f172a',
               letterSpacing: '-0.02em'
             }}>
-              Featured Products
+              All-in Pricing
             </h2>
             <p style={{ 
-              fontSize: '1.2rem', 
-              color: '#6c757d',
+              fontSize: '1rem', 
+              color: '#64748b',
               maxWidth: '600px',
               margin: '0 auto'
             }}>
-              Ready-to-ship items available now. Add to cart and checkout instantly!
+              Your price includes everything you need
             </p>
-          </div>
-          
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <ProductCarousel products={featuredProducts} onAddToCart={handleAddToCart} />
-          </div>
-          
-          <div className="text-center mt-5">
-            <Link href="/products">
-              <Button 
-                variant="primary" 
-                size="lg" 
-                className="px-5 py-3 fw-semibold"
-                style={{ 
-                  borderRadius: '12px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  border: 'none',
-                  boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
-                }}
-              >
-                View All Products
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
-
-      {/* Services - Modern Cards */}
-      <section style={{ padding: '100px 0', backgroundColor: '#ffffff' }}>
-        <Container>
-          <div className="text-center mb-5">
-            <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-              fontWeight: 800, 
-              marginBottom: '1rem',
-              color: '#1a1a1a',
-              letterSpacing: '-0.02em'
-            }}>
-              Why Choose Us
-            </h2>
           </div>
           
           <Row className="g-4">
             <Col md={6} lg={3}>
-              <div 
-                className="text-center p-5 h-100"
-                style={{
-                  background: 'linear-gradient(135deg, #667eea15 0%, #764ba215 100%)',
-                  borderRadius: '20px',
-                  transition: 'all 0.3s ease',
-                  border: '1px solid rgba(102, 126, 234, 0.1)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(102, 126, 234, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  margin: '0 auto 1.5rem',
-                  borderRadius: '20px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2.5rem',
-                  boxShadow: '0 8px 20px rgba(102, 126, 234, 0.3)'
-                }}>
-                  ✨
-                </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a1a1a', fontSize: '1.3rem' }}>Premium Quality</h4>
-                <p style={{ color: '#6c757d', marginBottom: 0, lineHeight: 1.7 }}>
-                  Top-tier materials and state-of-the-art equipment for lasting results
+              <div className="text-center p-4">
+                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>✓</div>
+                <h5 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.5rem', color: '#0f172a' }}>
+                  No Setup Fees
+                </h5>
+                <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0 }}>
+                  Transparent pricing with no hidden costs
                 </p>
               </div>
             </Col>
-            
             <Col md={6} lg={3}>
-              <div 
-                className="text-center p-5 h-100"
-                style={{
-                  background: 'linear-gradient(135deg, #f093fb15 0%, #f5576c15 100%)',
-                  borderRadius: '20px',
-                  transition: 'all 0.3s ease',
-                  border: '1px solid rgba(245, 87, 108, 0.1)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(245, 87, 108, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  margin: '0 auto 1.5rem',
-                  borderRadius: '20px',
-                  background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2.5rem',
-                  boxShadow: '0 8px 20px rgba(245, 87, 108, 0.3)'
-                }}>
-                  ⚡
-                </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a1a1a', fontSize: '1.3rem' }}>Fast Turnaround</h4>
-                <p style={{ color: '#6c757d', marginBottom: 0, lineHeight: 1.7 }}>
-                  Quick processing to meet your deadlines without compromising quality
+              <div className="text-center p-4">
+                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>✓</div>
+                <h5 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.5rem', color: '#0f172a' }}>
+                  Free Design Review
+                </h5>
+                <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0 }}>
+                  Expert feedback on your designs
                 </p>
               </div>
             </Col>
-            
             <Col md={6} lg={3}>
-              <div 
-                className="text-center p-5 h-100"
-                style={{
-                  background: 'linear-gradient(135deg, #4facfe15 0%, #00f2fe15 100%)',
-                  borderRadius: '20px',
-                  transition: 'all 0.3s ease',
-                  border: '1px solid rgba(79, 172, 254, 0.1)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(79, 172, 254, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  margin: '0 auto 1.5rem',
-                  borderRadius: '20px',
-                  background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2.5rem',
-                  boxShadow: '0 8px 20px rgba(79, 172, 254, 0.3)'
-                }}>
-                  🎨
-                </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a1a1a', fontSize: '1.3rem' }}>Custom Designs</h4>
-                <p style={{ color: '#6c757d', marginBottom: 0, lineHeight: 1.7 }}>
-                  Personalized designs tailored exactly to your unique vision
+              <div className="text-center p-4">
+                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>✓</div>
+                <h5 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.5rem', color: '#0f172a' }}>
+                  Free Standard Shipping
+                </h5>
+                <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0 }}>
+                  Fast delivery included in price
                 </p>
               </div>
             </Col>
-            
             <Col md={6} lg={3}>
-              <div 
-                className="text-center p-5 h-100"
-                style={{
-                  background: 'linear-gradient(135deg, #43e97b15 0%, #38f9d715 100%)',
-                  borderRadius: '20px',
-                  transition: 'all 0.3s ease',
-                  border: '1px solid rgba(67, 233, 123, 0.1)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(67, 233, 123, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  margin: '0 auto 1.5rem',
-                  borderRadius: '20px',
-                  background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2.5rem',
-                  boxShadow: '0 8px 20px rgba(67, 233, 123, 0.3)'
-                }}>
-                  💎
-                </div>
-                <h4 className="fw-bold mb-3" style={{ color: '#1a1a1a', fontSize: '1.3rem' }}>Expert Service</h4>
-                <p style={{ color: '#6c757d', marginBottom: 0, lineHeight: 1.7 }}>
-                  Professional guidance every step of the way
+              <div className="text-center p-4">
+                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>✓</div>
+                <h5 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.5rem', color: '#0f172a' }}>
+                  Satisfaction Guarantee
+                </h5>
+                <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0 }}>
+                  100% quality guarantee
                 </p>
               </div>
             </Col>
@@ -525,75 +334,53 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Modern CTA Section */}
-      <section style={{ 
-        padding: '120px 0',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%)',
-          pointerEvents: 'none'
-        }}></div>
-        <Container style={{ position: 'relative', zIndex: 1 }}>
-          <div className="text-center text-white" style={{ maxWidth: '700px', margin: '0 auto' }}>
+      {/* CTA Section - CustomInk Style */}
+      <section style={{ padding: '80px 0', backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
+        <Container>
+          <div className="text-center">
             <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
-              fontWeight: 800, 
-              marginBottom: '1.5rem',
-              color: '#ffffff',
+              fontSize: 'clamp(2rem, 5vw, 2.5rem)', 
+              fontWeight: 700, 
+              marginBottom: '1rem',
+              color: '#0f172a',
               letterSpacing: '-0.02em'
             }}>
-              Ready to Create Something Amazing?
+              Ready to Get Started?
             </h2>
             <p style={{ 
-              fontSize: '1.3rem', 
-              marginBottom: '3rem',
-              color: 'rgba(255,255,255,0.95)',
-              lineHeight: 1.7,
-              fontWeight: 300
+              fontSize: '1.125rem', 
+              color: '#64748b',
+              maxWidth: '600px',
+              margin: '0 auto 2rem'
             }}>
-              Let's bring your ideas to life. Start your custom order today and experience premium quality personalized products.
+              Create your custom design today and see it come to life
             </p>
-            <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <Link href="/custom-orders">
-                <Button 
-                  variant="light" 
-                  size="lg" 
-                  className="px-5 py-3 fw-bold"
-                  style={{ 
-                    fontSize: '1.1rem',
-                    borderRadius: '12px',
-                    boxShadow: '0 8px 25px rgba(0,0,0,0.3)',
-                    border: 'none'
-                  }}
-                >
-                  Start Your Project →
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button 
-                  variant="outline-light" 
-                  size="lg" 
-                  className="px-5 py-3 fw-semibold"
-                  style={{ 
-                    fontSize: '1.1rem',
-                    borderRadius: '12px',
-                    borderWidth: '2px',
-                    background: 'rgba(255,255,255,0.1)',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                >
-                  Get in Touch
-                </Button>
-              </Link>
-            </div>
+            <Link href="/shirt-prints">
+              <Button 
+                variant="primary" 
+                size="lg" 
+                className="px-5 py-3 fw-bold"
+                style={{ 
+                  fontSize: '1.125rem',
+                  borderRadius: '8px',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                  border: 'none',
+                  boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+                  fontWeight: 600,
+                  padding: '0.875rem 2rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 16px rgba(99, 102, 241, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
+                }}
+              >
+                Start Designing
+              </Button>
+            </Link>
           </div>
         </Container>
       </section>

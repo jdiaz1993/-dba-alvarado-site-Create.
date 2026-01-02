@@ -46,26 +46,38 @@ export default function Home() {
     {
       name: "T-Shirts",
       href: "/shirt-prints",
-      image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop&q=80",
+      image: "/assets/Stockphotodba/IMG_3186.WEBP",
       alt: "Plain T-Shirt"
     },
     {
-      name: "Hoodies",
+      name: "Long Sleeve",
       href: "/shirt-prints",
-      image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop&q=80",
-      alt: "Plain Hoodie"
+      image: "/assets/Stockphotodba/IMG_3187.WEBP",
+      alt: "Long Sleeve"
     },
     {
-      name: "Long Sleeve T-Shirts",
+      name: "Crew Neck",
       href: "/shirt-prints",
-      image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&h=800&fit=crop&q=80",
-      alt: "Plain Long Sleeve T-Shirt"
+      image: "/assets/Stockphotodba/IMG_3188.JPG",
+      alt: "Crew Neck"
     },
     {
       name: "Polo Shirts",
       href: "/shirt-prints",
-      image: "https://images.unsplash.com/photo-1594938291221-94f18b0f3c12?w=800&h=800&fit=crop&q=80",
+      image: "/assets/Stockphotodba/IMG_3189.WEBP",
       alt: "Plain Polo Shirt"
+    },
+    {
+      name: "Hoodie",
+      href: "/shirt-prints",
+      image: "/assets/Stockphotodba/IMG_3192.WEBP",
+      alt: "Hoodie"
+    },
+    {
+      name: "Tote Bag",
+      href: "/shirt-prints",
+      image: "/assets/Stockphotodba/IMG_3190.JPG",
+      alt: "Tote Bag"
     },
   ];
 
@@ -103,31 +115,31 @@ export default function Home() {
                   High-quality DTF printing on t-shirts, hoodies, and more. Create custom designs that stand out.
                 </p>
                 <Link href="/shirt-prints">
-                  <Button 
+                    <Button 
                     variant="primary" 
-                    size="lg" 
-                    className="px-5 py-3 fw-bold"
-                    style={{ 
+                      size="lg" 
+                      className="px-5 py-3 fw-bold"
+                      style={{ 
                       fontSize: '1.125rem',
                       borderRadius: '8px',
                       background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                      border: 'none',
+                        border: 'none',
                       boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
                       fontWeight: 600,
                       padding: '0.875rem 2rem'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'translateY(-2px)';
                       e.target.style.boxShadow = '0 6px 16px rgba(99, 102, 241, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'translateY(0)';
                       e.target.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
-                    }}
-                  >
+                      }}
+                    >
                     Get Started
-                  </Button>
-                </Link>
+                    </Button>
+                  </Link>
               </div>
             </Col>
           </Row>
@@ -166,7 +178,7 @@ export default function Home() {
               <div>
                 <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#0f172a' }}>
                   100% Satisfaction
-                </div>
+                  </div>
                 <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
                   Quality guaranteed
                 </div>
@@ -238,7 +250,8 @@ export default function Home() {
                         alt={category.alt}
                         className="w-100 h-100"
                         style={{ 
-                          objectFit: 'cover',
+                          objectFit: 'contain',
+                          objectPosition: 'center',
                           transition: 'transform 0.4s ease'
                         }}
                         onMouseEnter={(e) => {
@@ -356,11 +369,11 @@ export default function Home() {
               Create your custom design today and see it come to life
             </p>
             <Link href="/shirt-prints">
-              <Button 
+                <Button 
                 variant="primary" 
-                size="lg" 
-                className="px-5 py-3 fw-bold"
-                style={{ 
+                  size="lg" 
+                  className="px-5 py-3 fw-bold"
+                  style={{ 
                   fontSize: '1.125rem',
                   borderRadius: '8px',
                   background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
@@ -368,7 +381,7 @@ export default function Home() {
                   boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
                   fontWeight: 600,
                   padding: '0.875rem 2rem'
-                }}
+                  }}
                 onMouseEnter={(e) => {
                   e.target.style.transform = 'translateY(-2px)';
                   e.target.style.boxShadow = '0 6px 16px rgba(99, 102, 241, 0.4)';
@@ -376,11 +389,11 @@ export default function Home() {
                 onMouseLeave={(e) => {
                   e.target.style.transform = 'translateY(0)';
                   e.target.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
-                }}
-              >
+                  }}
+                >
                 Start Designing
-              </Button>
-            </Link>
+                </Button>
+              </Link>
           </div>
         </Container>
       </section>

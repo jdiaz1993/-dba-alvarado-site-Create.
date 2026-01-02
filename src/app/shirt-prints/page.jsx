@@ -7,27 +7,39 @@ export default function ShirtPrintsPage() {
 	const shirtTypes = [
 		{
 			name: "T-Shirts",
-			image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop&q=80",
+			image: "/assets/Stockphotodba/IMG_3186.WEBP",
 			description: "Classic cotton t-shirts perfect for any design",
 			startingPrice: "$20.00"
 		},
 		{
-			name: "Hoodies",
-			image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop&q=80",
-			description: "Warm and comfortable hoodies for your custom design",
-			startingPrice: "$45.00"
-		},
-		{
-			name: "Long Sleeve T-Shirts",
-			image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&h=800&fit=crop&q=80",
+			name: "Long Sleeve",
+			image: "/assets/Stockphotodba/IMG_3187.WEBP",
 			description: "Long sleeve options for cooler weather",
 			startingPrice: "$25.00"
 		},
 		{
+			name: "Crew Neck",
+			image: "/assets/Stockphotodba/IMG_3188.JPG",
+			description: "Comfortable crew neck shirts for your custom design",
+			startingPrice: "$25.00"
+		},
+		{
 			name: "Polo Shirts",
-			image: "https://images.unsplash.com/photo-1594938291221-94f18b0f3c12?w=800&h=800&fit=crop&q=80",
+			image: "/assets/Stockphotodba/IMG_3189.WEBP",
 			description: "Professional polo shirts with custom DTF printing",
 			startingPrice: "$35.00"
+		},
+		{
+			name: "Hoodie",
+			image: "/assets/Stockphotodba/IMG_3192.WEBP",
+			description: "Warm and comfortable hoodies for your custom design",
+			startingPrice: "$45.00"
+		},
+		{
+			name: "Tote Bag",
+			image: "/assets/Stockphotodba/IMG_3190.JPG",
+			description: "Custom printed tote bags for any occasion",
+			startingPrice: "$15.00"
 		},
 	];
 
@@ -155,13 +167,19 @@ export default function ShirtPrintsPage() {
 										height: '200px', 
 										backgroundColor: '#e9ecef', 
 										overflow: 'hidden',
-										position: 'relative'
+										position: 'relative',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center'
 									}}>
 										<img 
 											src={shirt.image}
 											alt={shirt.name}
 											className="w-100 h-100"
-											style={{ objectFit: 'cover' }}
+											style={{ 
+												objectFit: 'contain',
+												objectPosition: 'center'
+											}}
 										/>
 									</div>
 									<Card.Body className="p-4">

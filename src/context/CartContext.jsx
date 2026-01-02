@@ -27,20 +27,58 @@ export function CartProvider({ children }) {
 			setIsLoading(true);
 			setSyncError(null);
 			
+			// First, try to load from localStorage (client-side persistence)
+			if (typeof window !== 'undefined') {
+				const savedCart = localStorage.getItem('cart');
+				if (savedCart) {
+					try {
+						const parsedCart = JSON.parse(savedCart);
+						if (Array.isArray(parsedCart)) {
+							console.log('✅ Cart loaded from localStorage:', parsedCart);
+							setItems(parsedCart);
+							setIsLoading(false);
+							return;
+						}
+					} catch (e) {
+						console.error('Error parsing cart from localStorage:', e);
+					}
+				}
+			}
+			
+			// Fallback: Try to load from backend API
 			console.log('🛒 Loading cart from backend...');
 			const response = await fetch('/api/cart');
 			const data = await response.json();
 			
-			if (data.success && data.cart) {
-				console.log('✅ Cart loaded successfully:', data.cart.items);
-				setItems(data.cart.items || []);
+			if (data.success && data.cart && data.cart.items && data.cart.items.length > 0) {
+				console.log('✅ Cart loaded successfully from backend:', data.cart.items);
+				setItems(data.cart.items);
+				// Also save to localStorage for future use
+				if (typeof window !== 'undefined') {
+					localStorage.setItem('cart', JSON.stringify(data.cart.items));
+				}
 			} else {
 				console.log('📦 No existing cart found, starting with empty cart');
 				setItems([]);
 			}
 		} catch (error) {
-			console.error('❌ Failed to load cart from backend:', error);
+			console.error('❌ Failed to load cart:', error);
 			setSyncError('Failed to load cart');
+			// On error, try localStorage as fallback
+			if (typeof window !== 'undefined') {
+				const savedCart = localStorage.getItem('cart');
+				if (savedCart) {
+					try {
+						const parsedCart = JSON.parse(savedCart);
+						if (Array.isArray(parsedCart)) {
+							console.log('✅ Cart loaded from localStorage (fallback):', parsedCart);
+							setItems(parsedCart);
+						}
+					} catch (e) {
+						console.error('Error parsing cart from localStorage:', e);
+					}
+				}
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -51,6 +89,17 @@ export function CartProvider({ children }) {
 			setSyncError(null);
 			setIsSaving(true);
 			
+			// Save to localStorage first (immediate persistence)
+			if (typeof window !== 'undefined') {
+				try {
+					localStorage.setItem('cart', JSON.stringify(cartItems));
+					console.log('✅ Cart saved to localStorage:', cartItems);
+				} catch (e) {
+					console.error('Error saving to localStorage:', e);
+				}
+			}
+			
+			// Also try to save to backend (for future use or sync)
 			console.log('💾 Saving cart to backend:', cartItems);
 			const response = await fetch('/api/cart', {
 				method: 'POST',
@@ -66,10 +115,13 @@ export function CartProvider({ children }) {
 				throw new Error(data.error || 'Failed to save cart');
 			}
 			
-			console.log('✅ Cart saved successfully');
+			console.log('✅ Cart saved successfully to backend');
 		} catch (error) {
 			console.error('❌ Failed to save cart to backend:', error);
-			setSyncError('Failed to save cart');
+			// Don't set error if localStorage save succeeded
+			if (typeof window === 'undefined' || !localStorage.getItem('cart')) {
+				setSyncError('Failed to save cart');
+			}
 		} finally {
 			setIsSaving(false);
 		}
@@ -133,6 +185,13 @@ export function CartProvider({ children }) {
 		try {
 			setSyncError(null);
 			
+			// Clear localStorage
+			if (typeof window !== 'undefined') {
+				localStorage.removeItem('cart');
+				console.log('✅ Cart cleared from localStorage');
+			}
+			
+			// Also try to clear from backend
 			const response = await fetch('/api/cart', {
 				method: 'DELETE',
 			});
@@ -146,7 +205,8 @@ export function CartProvider({ children }) {
 			setItems([]);
 		} catch (error) {
 			console.error('Failed to clear cart:', error);
-			setSyncError('Failed to clear cart');
+			// Still clear items even if backend call fails
+			setItems([]);
 		}
 	}, []);
 

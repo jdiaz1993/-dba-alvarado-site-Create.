@@ -1,10 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card } from 'react-bootstrap';
+import DesignEditor from './DesignEditor';
 
-export default function DesignPreview({ productType, color, uploadedFiles }) {
+export default function DesignPreview({ productType, color, uploadedFiles, placement, customTexts = [], onTextPositionChange, onTextRotationChange, onPreviewImageReady, capturePreviewRef }) {
   const [imageUrls, setImageUrls] = useState([]);
+  const [designPosition, setDesignPosition] = useState({ x: 50, y: 40 });
+  const [designSize, setDesignSize] = useState(100);
+  const [designRotation, setDesignRotation] = useState(0);
 
   useEffect(() => {
     const urls = uploadedFiles.map(file => URL.createObjectURL(file));
@@ -15,7 +19,11 @@ export default function DesignPreview({ productType, color, uploadedFiles }) {
     };
   }, [uploadedFiles]);
 
-  if (productType !== 'shirt-printing') {
+  // Support all product types now
+  const supportedTypes = ['t-shirt', 'long-sleeve', 'crew-neck', 'polo', 'hoodie', 'tote-bag', 'shirt-printing'];
+  
+  // Don't show preview if no product type is selected
+  if (!productType || !supportedTypes.includes(productType)) {
     return null;
   }
 
@@ -36,83 +44,134 @@ export default function DesignPreview({ productType, color, uploadedFiles }) {
 
   const shirtColor = getColorHex(color);
 
+  // Get product image based on type
+  const getProductImage = () => {
+    switch(productType) {
+      case 'hoodie':
+        return '/assets/Stockphotodba/IMG_3192.WEBP';
+      case 'polo':
+        return '/assets/Stockphotodba/IMG_3189.WEBP';
+      case 'tote-bag':
+        return '/assets/Stockphotodba/IMG_3190.JPG';
+      case 'long-sleeve':
+        return '/assets/Stockphotodba/IMG_3187.WEBP';
+      case 'crew-neck':
+        return '/assets/Stockphotodba/IMG_3188.JPG';
+      case 't-shirt':
+      case 'shirt-printing':
+      default:
+        return '/assets/Stockphotodba/IMG_3186.WEBP';
+    }
+  };
+
+  // Get placement coordinates for real product images
+  const getPlacementStyle = () => {
+    const baseStyle = {
+      position: 'absolute',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0',
+      backgroundColor: 'transparent',
+      borderRadius: '0',
+      boxShadow: 'none',
+      zIndex: 10
+    };
+
+    // Coordinates adjusted for real product images (approximately)
+    // Hoodies have different proportions, so they need adjusted positions
+    const isHoodie = productType === 'hoodie';
+    const isToteBag = productType === 'tote-bag';
+    
+    switch(placement) {
+      case 'front-center':
+        if (isToteBag) {
+          return { ...baseStyle, top: '45%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px' };
+        }
+        return { ...baseStyle, top: isHoodie ? '48%' : '40%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px' };
+      case 'front-left':
+        return { ...baseStyle, top: '45%', left: '35%', transform: 'translate(-50%, -50%)', width: '100px', height: '100px' };
+      case 'front-right':
+        return { ...baseStyle, top: '45%', right: '35%', transform: 'translate(50%, -50%)', width: '100px', height: '100px' };
+      case 'back-center':
+        if (isToteBag) {
+          return { ...baseStyle, top: '55%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px' };
+        }
+        return { ...baseStyle, top: isHoodie ? '52%' : '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px' };
+      case 'side-left':
+        return { ...baseStyle, top: '50%', left: '10%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px' };
+      case 'side-right':
+        return { ...baseStyle, top: '50%', right: '10%', transform: 'translate(50%, -50%)', width: '80px', height: '80px' };
+      case 'front-left-chest':
+        return { ...baseStyle, top: isHoodie ? '32%' : '28%', left: isHoodie ? '28%' : '30%', transform: 'translate(-50%, -50%)', width: '70px', height: '70px' };
+      case 'front-right-chest':
+        return { ...baseStyle, top: isHoodie ? '32%' : '28%', right: isHoodie ? '28%' : '30%', transform: 'translate(50%, -50%)', width: '70px', height: '70px' };
+      case 'back-full':
+        return { ...baseStyle, top: isHoodie ? '52%' : '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '180px', height: '200px' };
+      case 'sleeve-left':
+        return { ...baseStyle, top: isHoodie ? '48%' : '45%', left: isHoodie ? '3%' : '5%', transform: 'translate(-50%, -50%)', width: '60px', height: '60px' };
+      case 'sleeve-right':
+        return { ...baseStyle, top: isHoodie ? '48%' : '45%', right: isHoodie ? '3%' : '5%', transform: 'translate(50%, -50%)', width: '60px', height: '60px' };
+      case 'hood':
+        return { ...baseStyle, top: isHoodie ? '10%' : '8%', left: '50%', transform: 'translate(-50%, -50%)', width: '90px', height: '90px' };
+      default:
+        if (isToteBag) {
+          return { ...baseStyle, top: '45%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px' };
+        }
+        return { ...baseStyle, top: isHoodie ? '48%' : '40%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px' };
+    }
+  };
+
+  // Debug: log the product type
+  console.log('DesignPreview - productType:', productType, 'supported:', supportedTypes.includes(productType));
+  
+  // Check if we have text items (even if empty, so preview shows while typing)
+  const hasTextItems = customTexts && customTexts.length > 0;
+  const hasTextWithContent = hasTextItems && customTexts.some(t => t && t.text && t.text.trim().length > 0);
+  console.log('DesignPreview - hasTextItems:', hasTextItems, 'hasTextWithContent:', hasTextWithContent, 'customTexts:', customTexts, 'placement:', placement);
+
   return (
     <Card className="mt-4">
       <Card.Body>
         <Card.Title>Design Preview</Card.Title>
+        {productType && (
+          <p className="small text-muted mb-3">
+            Product: {productType.charAt(0).toUpperCase() + productType.slice(1).replace('-', ' ')}
+          </p>
+        )}
         
-        <div className="d-flex align-items-center justify-content-center py-4">
-          <div className="position-relative" style={{ width: '288px', height: '384px' }}>
-            {/* T-Shirt Shape using CSS */}
-            <div 
-              className="position-absolute start-50 translate-middle-x"
-              style={{ 
-                width: '200px',
-                height: '240px',
-                backgroundColor: shirtColor,
-                borderRadius: '12px',
-                border: '4px solid #1f2937',
-                boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-                clipPath: 'polygon(15% 0%, 85% 0%, 100% 15%, 100% 100%, 0% 100%, 0% 15%)'
-              }}
-            >
-              {/* Neck hole */}
-              <div 
-                className="position-absolute top-0 start-50 translate-middle-x"
-                style={{ 
-                  width: '60px',
-                  height: '20px',
-                  borderRadius: '50px 50px 0 0',
-                  backgroundColor: '#f9fafb',
-                  border: '3px solid #1f2937',
-                  marginTop: '8px'
+        {(imageUrls.length > 0 || hasTextItems) ? (
+            <DesignEditor
+              productImage={getProductImage()}
+              designImage={imageUrls[0]}
+              placement={placement}
+              customTexts={customTexts}
+              onTextPositionChange={onTextPositionChange}
+              onTextRotationChange={onTextRotationChange}
+              onPreviewImageReady={onPreviewImageReady}
+              capturePreviewRef={capturePreviewRef}
+            />
+        ) : (
+          <div className="d-flex align-items-center justify-content-center py-4">
+            <div className="position-relative" style={{ maxWidth: '400px', width: '100%' }}>
+              {/* Real Product Image */}
+              <img 
+                src={getProductImage()}
+                alt={`${productType} preview`}
+                className="img-fluid"
+                style={{
+                  width: '100%',
+                  height: 'auto'
                 }}
               />
-              
-              {/* Design Preview */}
-              {imageUrls.length > 0 && (
-                <div className="position-absolute top-50 start-50 translate-middle w-50 h-50 bg-white rounded d-flex align-items-center justify-content-center p-2 shadow-lg" style={{ border: '3px solid #4b5563', width: '128px', height: '128px' }}>
-                  <img 
-                    src={imageUrls[0]} 
-                    alt="Design preview"
-                    className="img-fluid"
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
-                  />
-                </div>
-              )}
+              <div className="text-center mt-3">
+                <p className="text-muted small mb-0">
+                  Upload a design image or add custom text to see the preview
+                </p>
+              </div>
             </div>
-            
-            {/* Left Sleeve */}
-            <div 
-              className="position-absolute"
-              style={{ 
-                top: '32px',
-                left: '8px',
-                width: '48px',
-                height: '128px',
-                borderRadius: '0 50px 50px 0',
-                backgroundColor: shirtColor, 
-                border: '3px solid #1f2937', 
-                boxShadow: '0 5px 15px rgba(0,0,0,0.15)' 
-              }}
-            />
-            
-            {/* Right Sleeve */}
-            <div 
-              className="position-absolute"
-              style={{ 
-                top: '32px',
-                right: '8px',
-                width: '48px',
-                height: '128px',
-                borderRadius: '50px 0 0 50px',
-                backgroundColor: shirtColor, 
-                border: '3px solid #1f2937', 
-                boxShadow: '0 5px 15px rgba(0,0,0,0.15)' 
-              }}
-            />
           </div>
-        </div>
+        )}
 
         <div className="mt-3 text-center">
           <p className="small text-muted mb-0">

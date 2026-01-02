@@ -14,6 +14,8 @@ function CartContent() {
 	const searchParams = useSearchParams();
 	const [hasCleared, setHasCleared] = useState(false);
 	const [rushShipping, setRushShipping] = useState(false);
+	const [isCheckingOut, setIsCheckingOut] = useState(false);
+	const [checkoutError, setCheckoutError] = useState(null);
 
 	const status = useMemo(() => {
 		if (searchParams.get("success")) return "success";
@@ -36,42 +38,108 @@ function CartContent() {
 	const grandTotal = totalCents + shippingFee;
 
 	async function onCheckout() {
+		if (isCheckingOut) return; // Prevent double clicks
+		
+		setIsCheckingOut(true);
+		setCheckoutError(null);
+		
 		try {
-		// Add shipping as line items
-		const checkoutItems = [
-			...items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
-		];
-		
-		// Always add standard shipping
-		checkoutItems.push({
-			id: 'standard-shipping',
-			name: 'Standard Shipping (5-7 days)',
-			price: standardShippingFee,
-			quantity: 1
-		});
-		
-		// Add rush shipping fee if selected
-		if (rushShipping && rushShippingFee > 0) {
+			// Save full order data to localStorage before checkout (as backup)
+			// This includes all details: preview images, custom text, design data, etc.
+			if (typeof window !== 'undefined') {
+				const fullOrderData = {
+					timestamp: new Date().toISOString(),
+					items: items.map(item => ({
+						id: item.id,
+						name: item.name,
+						price: item.price,
+						quantity: item.quantity,
+						// Include all custom order details
+						imageUrl: item.imageUrl, // Preview image PNG
+						productType: item.productType,
+						color: item.color,
+						size: item.size,
+						placement: item.placement,
+						customTexts: item.customTexts,
+						isRushOrder: item.isRushOrder,
+						rushOrderFee: item.rushOrderFee,
+						shippingAddress: item.shippingAddress,
+						timeline: item.timeline,
+						designData: item.designData
+					})),
+					shipping: {
+						standard: standardShippingFee,
+						rush: rushShipping ? rushShippingFee : 0
+					},
+					total: grandTotal
+				};
+				localStorage.setItem('pendingOrder', JSON.stringify(fullOrderData));
+			}
+
+			// Add shipping as line items
+			const checkoutItems = [
+				...items.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
+			];
+			
+			// Always add standard shipping
 			checkoutItems.push({
-				id: 'rush-shipping',
-				name: 'Rush Shipping (2-3 days)',
-				price: rushShippingFee,
+				id: 'standard-shipping',
+				name: 'Standard Shipping (5-7 days)',
+				price: standardShippingFee,
 				quantity: 1
 			});
-		}
+			
+			// Add rush shipping fee if selected
+			if (rushShipping && rushShippingFee > 0) {
+				checkoutItems.push({
+					id: 'rush-shipping',
+					name: 'Rush Shipping (2-3 days)',
+					price: rushShippingFee,
+					quantity: 1
+				});
+			}
 
+			// Send full order data to backend for storage
 			const res = await fetch("/api/checkout", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ items: checkoutItems }),
+				body: JSON.stringify({ 
+					items: checkoutItems,
+					fullOrderData: items.map(item => ({
+						id: item.id,
+						name: item.name,
+						price: item.price,
+						quantity: item.quantity,
+						imageUrl: item.imageUrl, // Preview image PNG
+						productType: item.productType,
+						color: item.color,
+						size: item.size,
+						placement: item.placement,
+						customTexts: item.customTexts,
+						isRushOrder: item.isRushOrder,
+						rushOrderFee: item.rushOrderFee,
+						shippingAddress: item.shippingAddress,
+						timeline: item.timeline,
+						designData: item.designData
+					}))
+				}),
 			});
+			
 			const data = await res.json();
-			if (!res.ok) throw new Error(data?.error || "Checkout failed");
+			
+			if (!res.ok) {
+				throw new Error(data?.error || "Checkout failed");
+			}
+			
 			if (data?.url) {
 				window.location.href = data.url;
+			} else {
+				throw new Error("No checkout URL received");
 			}
 		} catch (e) {
-			alert(e instanceof Error ? e.message : "Checkout failed");
+			const errorMessage = e instanceof Error ? e.message : "Checkout failed. Please try again.";
+			setCheckoutError(errorMessage);
+			setIsCheckingOut(false);
 		}
 	}
 
@@ -89,6 +157,12 @@ function CartContent() {
 				{syncError && (
 					<Alert variant="danger" className="mb-4">
 						{syncError}. Your cart changes may not be saved.
+					</Alert>
+				)}
+
+				{checkoutError && (
+					<Alert variant="danger" className="mb-4" dismissible onClose={() => setCheckoutError(null)}>
+						<strong>Checkout Error:</strong> {checkoutError}
 					</Alert>
 				)}
 
@@ -196,8 +270,28 @@ function CartContent() {
 										<span>{formatUSD(grandTotal)}</span>
 									</div>
 									<div className="d-grid gap-2">
-										<Button variant="primary" size="lg" onClick={onCheckout}>Checkout</Button>
-										<Button variant="outline-secondary" onClick={clear}>Clear Cart</Button>
+										<Button 
+											variant="primary" 
+											size="lg" 
+											onClick={onCheckout}
+											disabled={isCheckingOut || items.length === 0}
+										>
+											{isCheckingOut ? (
+												<>
+													<span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+													Processing...
+												</>
+											) : (
+												'Checkout'
+											)}
+										</Button>
+										<Button 
+											variant="outline-secondary" 
+											onClick={clear}
+											disabled={isCheckingOut || items.length === 0}
+										>
+											Clear Cart
+										</Button>
 									</div>
 								</Card.Body>
 							</Card>
